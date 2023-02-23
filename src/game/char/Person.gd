@@ -11,6 +11,7 @@ onready var ground_raycast = $GroundRayCast2D
 onready var animation = $AnimationPlayer
 
 var velocity = Vector2.ZERO
+var attack_strength = 0
 
 
 func _ready():

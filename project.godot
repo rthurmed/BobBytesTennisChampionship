@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://modules/StateMachine/StateMachine.gd"
+}, {
+"base": "Node",
+"class": "Util",
+"language": "GDScript",
+"path": "res://src/Util.gd"
 } ]
 _global_script_class_icons={
 "State": "",
-"StateMachine": ""
+"StateMachine": "",
+"Util": ""
 }
 
 [application]

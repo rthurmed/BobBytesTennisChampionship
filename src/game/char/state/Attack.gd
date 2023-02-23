@@ -2,6 +2,7 @@ extends State
 
 const MOVE_SPEED = 50
 const ATTACK_ANGLE = deg2rad(45)
+const ATTACK_STRENGTH = 150
 
 
 func process(delta: float):
@@ -16,9 +17,12 @@ func _on_AttackArea2D_body_entered(body):
 	if not active():
 		return
 	
-	var strength = 200 # TODO: make it variable
+	var strength_modifier = 1 + owner.attack_strength
 	var horizontal_modifier = 1 if owner.opposite_side else -1
+	
+	var strength = ATTACK_STRENGTH * strength_modifier
 	var direction = Vector2.LEFT
+	
 	direction = direction.rotated(ATTACK_ANGLE)
 	direction.x = direction.x * horizontal_modifier
 	

@@ -237,6 +237,10 @@ script = ExtResource( 6 )
 [node name="HoldAttack" type="Node" parent="StateMachine"]
 script = ExtResource( 12 )
 
+[node name="Timer" type="Timer" parent="StateMachine/HoldAttack"]
+wait_time = 3.0
+one_shot = true
+
 [node name="Attack" type="Node" parent="StateMachine"]
 script = ExtResource( 11 )
 
