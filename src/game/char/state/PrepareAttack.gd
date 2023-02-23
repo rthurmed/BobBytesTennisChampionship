@@ -1,7 +1,7 @@
 extends State
 
 
-const SPEED = 80
+const SPEED = 60
 
 onready var timer: Timer = $Timer
 
