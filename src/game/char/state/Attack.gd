@@ -2,7 +2,7 @@ extends State
 
 const MOVE_SPEED = 50
 const ATTACK_ANGLE = deg2rad(45)
-const ATTACK_STRENGTH = 150
+const ATTACK_STRENGTH = 200
 
 
 func process(delta: float):

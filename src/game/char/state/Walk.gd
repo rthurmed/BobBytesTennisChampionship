@@ -1,7 +1,7 @@
 extends State
 
 
-const SPEED = 150
+const SPEED = 100
 
 
 func process(delta: float):
