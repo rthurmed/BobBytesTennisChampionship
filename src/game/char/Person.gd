@@ -6,13 +6,17 @@ export var action_prefix = "p1_"
 export var default_speed = 200
 
 onready var visual_instance = $VisualInstance
+onready var colliders = $Colliders
 onready var ground_raycast = $GroundRayCast2D
+onready var animation = $AnimationPlayer
 
 var velocity = Vector2.ZERO
 
 
 func _ready():
-	visual_instance.scale.x = -1 if opposite_side else 1
+	var scale_x = -1 if opposite_side else 1
+	visual_instance.scale.x = scale_x
+	colliders.scale.x = scale_x
 
 
 func get_action(action: String):
