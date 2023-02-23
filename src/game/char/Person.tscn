@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/game/char/Person.gd" type="Script" id=1]
 [ext_resource path="res://src/game/char/state/Walk.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://modules/StateMachine/StateMachine.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/game/char/state/Attack.gd" type="Script" id=11]
 [ext_resource path="res://src/game/char/state/PrepareAttack.gd" type="Script" id=12]
+[ext_resource path="res://modules/Debugging/DebugNode.tscn" type="PackedScene" id=13]
 
 [sub_resource type="CircleShape2D" id=6]
 radius = 20.025
@@ -223,6 +224,20 @@ script = ExtResource( 11 )
 anims/Attack = SubResource( 2 )
 anims/HoldAttack = SubResource( 5 )
 anims/RESET = SubResource( 3 )
+
+[node name="DebugNode" parent="." instance=ExtResource( 13 )]
+rect_scale = Vector2( 0.5, 0.5 )
+
+[node name="StrengthLabel" type="Label" parent="DebugNode"]
+margin_top = 16.0
+margin_right = 69.0
+margin_bottom = 30.0
+text = "strength: 0"
+
+[node name="StateLabel" type="Label" parent="DebugNode"]
+margin_right = 69.0
+margin_bottom = 14.0
+text = "state: 0"
 
 [connection signal="body_entered" from="Colliders/AttackArea2D" to="StateMachine/Attack" method="_on_AttackArea2D_body_entered"]
 [connection signal="transition" from="StateMachine" to="." method="_on_StateMachine_transition"]

@@ -24,8 +24,12 @@ func _on_AttackArea2D_body_entered(body):
 	var strength = ATTACK_STRENGTH * strength_modifier
 	var direction = Vector2.LEFT
 	
+	# TODO: grab player movement direction to change angle
+	
 	direction = direction.rotated(ATTACK_ANGLE)
 	direction.x = direction.x * horizontal_modifier
+	
+	$"../../DebugNode/StrengthLabel".text = str("strength: ", strength)
 	
 	body.set_deferred("linear_velocity", Vector2.ZERO)
 	body.call_deferred("apply_central_impulse", direction * strength)

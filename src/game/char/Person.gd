@@ -42,4 +42,4 @@ func move(delta, movement = Vector2.ZERO):
 
 
 func _on_StateMachine_transition(state_name):
-	print(name + ' changed state to: ' + state_name)
+	$DebugNode/StateLabel.text = str("state: ", state_name)
