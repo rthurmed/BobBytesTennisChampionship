@@ -38,7 +38,6 @@ position = Vector2( 2, 33 )
 texture = ExtResource( 8 )
 
 [node name="Arena" type="StaticBody2D" parent="Layers/Backdrop"]
-visible = false
 collision_mask = 7
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Arena"]

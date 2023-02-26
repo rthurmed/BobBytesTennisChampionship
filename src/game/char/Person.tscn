@@ -19,8 +19,9 @@
 [ext_resource path="res://assets/robot/head.tres" type="Texture" id=17]
 [ext_resource path="res://assets/robot/foot.tres" type="Texture" id=18]
 
-[sub_resource type="CircleShape2D" id=6]
-radius = 20.025
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 11.7583
+height = 15.9282
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11, 5 )
@@ -211,7 +212,8 @@ collision_mask = 4
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/AttackArea2D"]
-position = Vector2( -6, -12 )
+position = Vector2( 3, -7 )
+rotation = -1.0472
 shape = SubResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
