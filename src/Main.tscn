@@ -6,7 +6,7 @@
 [ext_resource path="res://src/game/Ball.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/background.png" type="Texture" id=5]
 [ext_resource path="res://assets/net.png" type="Texture" id=6]
-[ext_resource path="res://assets/court.png" type="Texture" id=7]
+[ext_resource path="res://assets/court-full.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 127.5 )
@@ -20,7 +20,7 @@ position = Vector2( -1, 0 )
 z_index = -10
 
 [node name="Background" type="Sprite" parent="Layers/Backdrop"]
-position = Vector2( 0, -76 )
+position = Vector2( 1, -76 )
 texture = ExtResource( 5 )
 
 [node name="Square3" type="Sprite" parent="Layers/Backdrop"]
@@ -33,11 +33,12 @@ texture = ExtResource( 1 )
 position = Vector2( 1, -23 )
 texture = ExtResource( 6 )
 
-[node name="Court" type="Sprite" parent="Layers/Backdrop"]
-position = Vector2( 2, 1 )
-texture = ExtResource( 7 )
+[node name="Court-full" type="Sprite" parent="Layers/Backdrop"]
+position = Vector2( 2, 33 )
+texture = ExtResource( 8 )
 
 [node name="Arena" type="StaticBody2D" parent="Layers/Backdrop"]
+visible = false
 collision_mask = 7
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Arena"]
