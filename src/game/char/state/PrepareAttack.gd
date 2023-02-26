@@ -20,3 +20,4 @@ func enter():
 
 func exit():
 	owner.attack_strength = Util.timer_percent(timer)
+	owner.attack_angle = owner.get_attack_angle()

@@ -20,6 +20,8 @@ func process(delta: float):
 	owner.move(delta, Vector2.ZERO)
 
 
-func physics_process(_delta: float): pass
-func enter(): pass
+func enter():
+	owner.animation.play("Idle")
+
+
 func exit(): pass

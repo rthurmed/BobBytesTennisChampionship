@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://src/game/char/Person.gd" type="Script" id=1]
 [ext_resource path="res://src/game/char/state/Walk.gd" type="Script" id=2]
@@ -13,9 +13,15 @@
 [ext_resource path="res://src/game/char/state/Attack.gd" type="Script" id=11]
 [ext_resource path="res://src/game/char/state/PrepareAttack.gd" type="Script" id=12]
 [ext_resource path="res://modules/Debugging/DebugNode.tscn" type="PackedScene" id=13]
+[ext_resource path="res://assets/robot/racket.tres" type="Texture" id=14]
+[ext_resource path="res://assets/robot/hand.tres" type="Texture" id=15]
+[ext_resource path="res://assets/robot/torso.tres" type="Texture" id=16]
+[ext_resource path="res://assets/robot/head.tres" type="Texture" id=17]
+[ext_resource path="res://assets/robot/foot.tres" type="Texture" id=18]
 
-[sub_resource type="CircleShape2D" id=6]
-radius = 20.025
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 11.7583
+height = 15.9282
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11, 5 )
@@ -25,7 +31,7 @@ resource_name = "Attack"
 length = 0.25
 step = 0.05
 tracks/0/type = "value"
-tracks/0/path = NodePath("VisualInstance/Racket:rotation_degrees")
+tracks/0/path = NodePath("VisualInstance/Hands/Racket:rotation_degrees")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -48,11 +54,23 @@ tracks/1/keys = {
 "update": 1,
 "values": [ true, false, false ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("VisualInstance/Hands/Racket:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1, 0.25 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 6, -11 ), Vector2( 10, -10 ), Vector2( 6, -11 ) ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "HoldAttack"
 tracks/0/type = "value"
-tracks/0/path = NodePath("VisualInstance/Racket:rotation_degrees")
+tracks/0/path = NodePath("VisualInstance/Hands/Racket:rotation_degrees")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -64,10 +82,75 @@ tracks/0/keys = {
 "values": [ 30.5111, -57.9779, -71.1627 ]
 }
 
+[sub_resource type="Animation" id=8]
+resource_name = "Idle"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("VisualInstance/Legs/Foot1:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 5, -3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VisualInstance/Legs/Foot2:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -4, -3 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("VisualInstance/Body:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 2 ), Vector2( 0, 3 ), Vector2( 0, 2 ), Vector2( 0, 1 ), Vector2( 0, 2 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("VisualInstance/Hands:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -2, 0 ), Vector2( 0, 2 ), Vector2( 2, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("VisualInstance/Body/Head:position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -20 ), Vector2( 0, -18 ) ]
+}
+
 [sub_resource type="Animation" id=3]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("VisualInstance/Racket:position")
+tracks/0/path = NodePath("VisualInstance/Hands/Racket:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -79,7 +162,7 @@ tracks/0/keys = {
 "values": [ Vector2( 6, -11 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("VisualInstance/Racket:rotation_degrees")
+tracks/1/path = NodePath("VisualInstance/Hands/Racket:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -91,7 +174,7 @@ tracks/1/keys = {
 "values": [ 30.5111 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("VisualInstance/Racket:scale")
+tracks/2/path = NodePath("Colliders/AttackArea2D:monitoring")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -100,10 +183,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0.447384, 0.820709 ) ]
+"values": [ false ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Colliders/AttackArea2D:monitoring")
+tracks/3/path = NodePath("VisualInstance/Legs/Foot2:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -112,7 +195,120 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ Vector2( -1, -3 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("VisualInstance/Legs/Foot1:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3, -3 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("VisualInstance/Body:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("VisualInstance/Hands:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("VisualInstance/Body/Head:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -20 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "Walk"
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("VisualInstance/Legs/Foot2:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -3, -3 ), Vector2( 3, -5 ), Vector2( 6, -3 ), Vector2( -1, -3 ), Vector2( -3, -3 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("VisualInstance/Legs/Foot1:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 4, -6 ), Vector2( -1, -3 ), Vector2( -4, -3 ), Vector2( 3, -4 ), Vector2( 4, -6 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("VisualInstance/Body:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -3 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("VisualInstance/Hands:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 1, -2 ), Vector2( -2, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("VisualInstance/Body/Head:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, -20 ), Vector2( 0, -16 ) ]
 }
 
 [node name="Person" type="KinematicBody2D"]
@@ -122,6 +318,7 @@ script = ExtResource( 1 )
 [node name="VisualInstance" type="Node2D" parent="."]
 
 [node name="Jetpack" type="Node2D" parent="VisualInstance"]
+visible = false
 position = Vector2( -5, -17 )
 
 [node name="Square" type="Sprite" parent="VisualInstance/Jetpack"]
@@ -148,28 +345,56 @@ scale = Vector2( 0.8, -0.449998 )
 z_index = -1
 texture = ExtResource( 9 )
 
-[node name="Body" type="Sprite" parent="VisualInstance"]
+[node name="Triangle" type="Sprite" parent="VisualInstance"]
+visible = false
 position = Vector2( 0, -12 )
 texture = ExtResource( 9 )
 
-[node name="Head" type="Sprite" parent="VisualInstance"]
+[node name="Ball" type="Sprite" parent="VisualInstance"]
+visible = false
 position = Vector2( 0, -24 )
 scale = Vector2( 0.599998, 0.600001 )
 texture = ExtResource( 7 )
 
-[node name="Racket" type="Node2D" parent="VisualInstance"]
+[node name="Legs" type="Node2D" parent="VisualInstance"]
+
+[node name="Foot1" type="Sprite" parent="VisualInstance/Legs"]
+position = Vector2( 3, -3 )
+texture = ExtResource( 18 )
+
+[node name="Foot2" type="Sprite" parent="VisualInstance/Legs"]
+position = Vector2( -1, -3 )
+z_index = 1
+texture = ExtResource( 18 )
+
+[node name="Body" type="Node2D" parent="VisualInstance"]
+
+[node name="Torso" type="Sprite" parent="VisualInstance/Body"]
+position = Vector2( 0, -11 )
+texture = ExtResource( 16 )
+
+[node name="Head" type="Sprite" parent="VisualInstance/Body"]
+position = Vector2( 0, -20 )
+texture = ExtResource( 17 )
+
+[node name="Hands" type="Node2D" parent="VisualInstance"]
+
+[node name="Racket" type="Node2D" parent="VisualInstance/Hands"]
 position = Vector2( 6, -11 )
 rotation = 0.532519
-scale = Vector2( 0.447384, 0.820709 )
 
-[node name="Square" type="Sprite" parent="VisualInstance/Racket"]
-position = Vector2( 0.93782, -5.9297 )
-scale = Vector2( 0.218606, 0.711803 )
-texture = ExtResource( 8 )
+[node name="Hand2" type="Sprite" parent="VisualInstance/Hands/Racket"]
+position = Vector2( 2, 0 )
+texture = ExtResource( 15 )
 
-[node name="Circle2" type="Sprite" parent="VisualInstance/Racket"]
-position = Vector2( 0.823919, -23.3353 )
-texture = ExtResource( 7 )
+[node name="Racket" type="Sprite" parent="VisualInstance/Hands/Racket"]
+position = Vector2( 1, -11 )
+rotation = -1.5708
+texture = ExtResource( 14 )
+
+[node name="Hand1" type="Sprite" parent="VisualInstance/Hands/Racket"]
+position = Vector2( 0, 1 )
+texture = ExtResource( 15 )
 
 [node name="Colliders" type="Node2D" parent="."]
 
@@ -180,7 +405,8 @@ collision_mask = 4
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/AttackArea2D"]
-position = Vector2( -6, -12 )
+position = Vector2( 3, -7 )
+rotation = -1.0472
 shape = SubResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -223,7 +449,9 @@ script = ExtResource( 11 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Attack = SubResource( 2 )
 anims/HoldAttack = SubResource( 5 )
+anims/Idle = SubResource( 8 )
 anims/RESET = SubResource( 3 )
+anims/Walk = SubResource( 7 )
 
 [node name="DebugNode" parent="." instance=ExtResource( 13 )]
 rect_scale = Vector2( 0.5, 0.5 )

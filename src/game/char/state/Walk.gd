@@ -24,5 +24,11 @@ func process(delta: float):
 
 
 func physics_process(_delta: float): pass
-func enter(): pass
-func exit(): pass
+
+
+func enter():
+	owner.animation.play("Walk")
+
+
+func exit():
+	owner.animation.play("RESET")
