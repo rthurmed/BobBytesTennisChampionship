@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://src/Main.gd" type="Script" id=1]
 [ext_resource path="res://src/game/char/Person.tscn" type="PackedScene" id=2]
@@ -6,17 +6,21 @@
 [ext_resource path="res://src/game/Ball.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/background.png" type="Texture" id=5]
 [ext_resource path="res://assets/net.png" type="Texture" id=6]
+[ext_resource path="res://modules/Debugging/DebugNode.tscn" type="PackedScene" id=7]
 [ext_resource path="res://modules/Juice/Camera/Shake.tscn" type="PackedScene" id=8]
-[ext_resource path="res://assets/sfx/hitHurt.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/sfx/pickupCoin.wav" type="AudioStream" id=9]
+[ext_resource path="res://assets/sfx/ballRacket.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/sfx/ballFloor.wav" type="AudioStream" id=11]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 232, 40 )
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 5, 127.5 )
+extents = Vector2( 7.5, 127.5 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
+ball_scene = ExtResource( 4 )
 
 [node name="Layers" type="Node2D" parent="."]
 
@@ -51,26 +55,43 @@ collision_mask = 7
 position = Vector2( 2, 33 )
 shape = SubResource( 2 )
 
-[node name="PlayerWall" type="StaticBody2D" parent="Layers/Backdrop" groups=["playerwall"]]
+[node name="PlayerWall" type="StaticBody2D" parent="Layers/Backdrop"]
+visible = false
 collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Backdrop/PlayerWall"]
-position = Vector2( 1, -127.5 )
+position = Vector2( 1, -128 )
+shape = SubResource( 1 )
+
+[node name="FieldTransitionArea" type="Area2D" parent="Layers/Backdrop"]
+position = Vector2( -1, 0 )
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Backdrop/FieldTransitionArea"]
+position = Vector2( 2, -128 )
 shape = SubResource( 1 )
 
 [node name="Game" type="Node2D" parent="Layers"]
 
 [node name="Person1" parent="Layers/Game" instance=ExtResource( 2 )]
-position = Vector2( -162, -21 )
+position = Vector2( -160, -20 )
 
 [node name="Person2" parent="Layers/Game" instance=ExtResource( 2 )]
-position = Vector2( 61, -112 )
+position = Vector2( 160, -20 )
 opposite_side = true
 action_prefix = "p2_"
 
-[node name="Ball" parent="Layers/Game" instance=ExtResource( 4 )]
-position = Vector2( -72, -167 )
+[node name="Positions" type="Node2D" parent="Layers"]
+
+[node name="BallStart" type="Node2D" parent="Layers/Positions"]
+position = Vector2( 0, -180 )
+
+[node name="Char1" type="Position2D" parent="Layers/Positions/BallStart"]
+position = Vector2( -160, 0 )
+
+[node name="Char2" type="Position2D" parent="Layers/Positions/BallStart"]
+position = Vector2( 160, 0 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -76 )
@@ -84,8 +105,46 @@ default_time = 0.1
 
 [node name="Sounds" type="Node" parent="."]
 
-[node name="HitBall" type="AudioStreamPlayer" parent="Sounds"]
+[node name="HitFloor" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 11 )
+
+[node name="HitRacket" type="AudioStreamPlayer" parent="Sounds"]
 stream = ExtResource( 10 )
 
+[node name="Score" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 9 )
+
+[node name="DebugNode" parent="." instance=ExtResource( 7 )]
+margin_left = -193.0
+margin_top = -189.0
+margin_right = -193.0
+margin_bottom = -189.0
+rect_scale = Vector2( 0.5, 0.5 )
+
+[node name="FocusedLabel" type="Label" parent="DebugNode"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "focused: char1"
+
+[node name="KicksLabel" type="Label" parent="DebugNode"]
+margin_top = 16.0
+margin_right = 93.0
+margin_bottom = 30.0
+text = "kicks: 0"
+
+[node name="PointsChar1Label" type="Label" parent="DebugNode"]
+margin_top = 32.0
+margin_right = 93.0
+margin_bottom = 46.0
+text = "points char1: 0"
+
+[node name="PointsChar2Label" type="Label" parent="DebugNode"]
+margin_top = 48.0
+margin_right = 93.0
+margin_bottom = 62.0
+text = "points char2: 0"
+
+[connection signal="scored_point" from="." to="." method="_on_Main_scored_point"]
+[connection signal="body_exited" from="Layers/Backdrop/FieldTransitionArea" to="." method="_on_FieldTransitionArea_body_exited"]
 [connection signal="attack_executed" from="Layers/Game/Person1" to="." method="_on_Person_attack_executed"]
 [connection signal="attack_executed" from="Layers/Game/Person2" to="." method="_on_Person_attack_executed"]

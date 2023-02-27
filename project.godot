@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "RigidBody2D",
+"class": "Ball",
+"language": "GDScript",
+"path": "res://src/game/Ball.gd"
+}, {
+"base": "Node2D",
+"class": "Stage",
+"language": "GDScript",
+"path": "res://src/Main.gd"
+}, {
 "base": "Node",
 "class": "State",
 "language": "GDScript",
@@ -25,6 +35,8 @@ _global_script_classes=[ {
 "path": "res://src/Util.gd"
 } ]
 _global_script_class_icons={
+"Ball": "",
+"Stage": "",
 "State": "",
 "StateMachine": "",
 "Util": ""
