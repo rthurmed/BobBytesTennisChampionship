@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
 
+signal attack_executed(strength)
+
 export var opposite_side = false
 export var action_prefix = "p1_"
 export var attack_angle_values = {
@@ -62,6 +64,23 @@ func get_attack_angle():
 		angle = attack_angle_values["high"]
 	
 	return angle
+
+
+func attack(body: RigidBody2D, strength):
+	var horizontal_modifier = 1 if opposite_side else -1
+	var angle = attack_angle
+	var direction = Vector2.LEFT
+	
+	direction = direction.rotated(angle)
+	direction.x = direction.x * horizontal_modifier
+	
+	$DebugNode/AttackStrengthLabel.text = str("strength: ", strength)
+	$DebugNode/AttackAngleLabel.text = str("angle: ", rad2deg(angle), "º")
+	
+	body.set_deferred("linear_velocity", Vector2.ZERO)
+	body.call_deferred("apply_central_impulse", direction * strength)
+	
+	emit_signal("attack_executed", strength)
 
 
 func _on_StateMachine_transition(state_name):

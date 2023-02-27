@@ -19,20 +19,9 @@ func _on_AttackArea2D_body_entered(body):
 		return
 	
 	var strength_modifier = 1 + (owner.attack_strength * ATTACK_MAX_MULTIPLIER)
-	var horizontal_modifier = 1 if owner.opposite_side else -1
-	
-	var angle = owner.attack_angle
 	var strength = ATTACK_STRENGTH * strength_modifier
-	var direction = Vector2.LEFT
 	
-	direction = direction.rotated(angle)
-	direction.x = direction.x * horizontal_modifier
-	
-	$"../../DebugNode/AttackStrengthLabel".text = str("strength: ", strength)
-	$"../../DebugNode/AttackAngleLabel".text = str("angle: ", rad2deg(angle), "º")
-	
-	body.set_deferred("linear_velocity", Vector2.ZERO)
-	body.call_deferred("apply_central_impulse", direction * strength)
+	owner.attack(body, strength)
 
 
 func _on_AnimationPlayer_animation_finished(anim_name):

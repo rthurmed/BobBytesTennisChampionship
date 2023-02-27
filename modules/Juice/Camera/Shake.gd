@@ -10,11 +10,17 @@ onready var tween: Tween = $Tween
 
 signal completed
 
+var rng = RandomNumberGenerator.new()
+
+
+func _ready():
+	rng.randomize()
+
 
 func impact(time: float = default_time, strength: float = default_strength):
 	var force = Vector2(
-		Util.random(-strength, strength),
-		Util.random(-strength, strength)
+		rng.randf_range(-strength, strength),
+		rng.randf_range(-strength, strength)
 	)
 	_bounce_camera(force, time)
 
