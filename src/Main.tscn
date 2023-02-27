@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/Main.gd" type="Script" id=1]
 [ext_resource path="res://src/game/char/Person.tscn" type="PackedScene" id=2]
@@ -11,6 +11,8 @@
 [ext_resource path="res://assets/sfx/pickupCoin.wav" type="AudioStream" id=9]
 [ext_resource path="res://assets/sfx/ballRacket.wav" type="AudioStream" id=10]
 [ext_resource path="res://assets/sfx/ballFloor.wav" type="AudioStream" id=11]
+[ext_resource path="res://assets/score-display.png" type="Texture" id=12]
+[ext_resource path="res://assets/font/score_font.tres" type="DynamicFont" id=13]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 232, 40 )
@@ -31,6 +33,30 @@ z_index = -10
 [node name="Background" type="Sprite" parent="Layers/Backdrop"]
 position = Vector2( 2, -79 )
 texture = ExtResource( 5 )
+
+[node name="ScoreDisplay" type="Node2D" parent="Layers/Backdrop"]
+unique_name_in_owner = true
+position = Vector2( 1, -160 )
+
+[node name="Sprite" type="Sprite" parent="Layers/Backdrop/ScoreDisplay"]
+texture = ExtResource( 12 )
+
+[node name="LabelChar1" type="Label" parent="Layers/Backdrop/ScoreDisplay"]
+margin_left = -33.0
+margin_top = -11.0
+margin_right = 1.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 13 )
+text = "00"
+align = 2
+
+[node name="LabelChar2" type="Label" parent="Layers/Backdrop/ScoreDisplay"]
+margin_left = 4.0
+margin_top = -11.0
+margin_right = 38.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 13 )
+text = "00"
 
 [node name="Net" type="StaticBody2D" parent="Layers/Backdrop"]
 position = Vector2( 1, -23 )

@@ -17,6 +17,8 @@ onready var camera_shake = $Camera2D/Shake
 onready var ball_start_position_char1 = $Layers/Positions/BallStart/Char1
 onready var ball_start_position_char2 = $Layers/Positions/BallStart/Char2
 onready var game_layer = $Layers/Game
+onready var score_label_char1 = $Layers/Backdrop/ScoreDisplay/LabelChar1
+onready var score_label_char2 = $Layers/Backdrop/ScoreDisplay/LabelChar2
 
 var ball: Ball
 var ball_on_char1 = true
@@ -77,6 +79,9 @@ func _on_Main_scored_point(is_by_char1):
 	
 	$DebugNode/PointsChar1Label.text = 'points char1: ' + str(points_char1)
 	$DebugNode/PointsChar2Label.text = 'points char2: ' + str(points_char2)
+	
+	score_label_char1.text = str("%02d" % points_char1)
+	score_label_char2.text = str("%02d" % points_char2)
 	
 	# is the last point?
 	if (
