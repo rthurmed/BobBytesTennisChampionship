@@ -115,3 +115,9 @@ func spawn_new_ball(to_char1):
 	var _ok = ball.connect("touched_floor", self, "_on_Ball_touched_floor")
 	
 	game_layer.call_deferred("add_child", ball)
+
+
+func _on_Main_gameover(_is_char1_winner):
+	counting_ball_kicks = false
+	ball.set_state(false)
+	# TODO: congratulate winner

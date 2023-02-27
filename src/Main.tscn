@@ -170,6 +170,7 @@ margin_right = 93.0
 margin_bottom = 62.0
 text = "points char2: 0"
 
+[connection signal="gameover" from="." to="." method="_on_Main_gameover"]
 [connection signal="scored_point" from="." to="." method="_on_Main_scored_point"]
 [connection signal="body_exited" from="Layers/Backdrop/FieldTransitionArea" to="." method="_on_FieldTransitionArea_body_exited"]
 [connection signal="attack_executed" from="Layers/Game/Person1" to="." method="_on_Person_attack_executed"]
