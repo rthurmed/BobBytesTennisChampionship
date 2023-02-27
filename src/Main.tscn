@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/Main.gd" type="Script" id=1]
 [ext_resource path="res://src/game/char/Person.tscn" type="PackedScene" id=2]
@@ -6,10 +6,11 @@
 [ext_resource path="res://src/game/Ball.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/background.png" type="Texture" id=5]
 [ext_resource path="res://assets/net.png" type="Texture" id=6]
-[ext_resource path="res://src/game/Bottle.tscn" type="PackedScene" id=7]
 [ext_resource path="res://modules/Juice/Camera/Shake.tscn" type="PackedScene" id=8]
-[ext_resource path="res://src/game/Bomb.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/sfx/hitHurt.wav" type="AudioStream" id=10]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 232, 40 )
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 127.5 )
@@ -27,17 +28,30 @@ z_index = -10
 position = Vector2( 2, -79 )
 texture = ExtResource( 5 )
 
-[node name="Net" type="Sprite" parent="Layers/Backdrop"]
+[node name="Net" type="StaticBody2D" parent="Layers/Backdrop"]
 position = Vector2( 1, -23 )
-texture = ExtResource( 6 )
-
-[node name="Arena" type="StaticBody2D" parent="Layers/Backdrop"]
 collision_mask = 7
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Arena"]
-polygon = PoolVector2Array( -7, -38, 1, -39, 9, -38, 9, -7, 200, -7, 200, -196, -197, -196, -252, -233, -248, -267.594, 229.308, -286, 250, -235, 251, 53, -248, 45, -248, -234, -198, -195, -198, -7, -7, -7 )
+[node name="Sprite" type="Sprite" parent="Layers/Backdrop/Net"]
+texture = ExtResource( 6 )
 
-[node name="PlayerWall" type="StaticBody2D" parent="Layers/Backdrop"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Net"]
+polygon = PoolVector2Array( -7, -15, 0, -16, 7, -15, 7, 20, -7, 20 )
+
+[node name="Wall" type="StaticBody2D" parent="Layers/Backdrop"]
+collision_mask = 7
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Wall"]
+polygon = PoolVector2Array( 201, 43, 201, -196, -199, -196, -199, 43, -253, 42, -248, -267.594, 229.308, -286, 250, -235, 251, 43 )
+
+[node name="Floor" type="StaticBody2D" parent="Layers/Backdrop" groups=["floor"]]
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Backdrop/Floor"]
+position = Vector2( 2, 33 )
+shape = SubResource( 2 )
+
+[node name="PlayerWall" type="StaticBody2D" parent="Layers/Backdrop" groups=["playerwall"]]
 collision_layer = 2
 collision_mask = 3
 
@@ -57,12 +71,6 @@ action_prefix = "p2_"
 
 [node name="Ball" parent="Layers/Game" instance=ExtResource( 4 )]
 position = Vector2( -72, -167 )
-
-[node name="Bottle" parent="Layers/Game" instance=ExtResource( 7 )]
-position = Vector2( -166, -147 )
-
-[node name="Bomb" parent="Layers/Game" instance=ExtResource( 9 )]
-position = Vector2( -116, -188 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, -76 )
