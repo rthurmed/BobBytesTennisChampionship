@@ -11,9 +11,6 @@ func apply_camera_shake(strength):
 	camera_shake.impact(camera_shake.default_time, shake_strength)
 
 
-func _on_Person1_attack_executed(strength):
+func _on_Person_attack_executed(strength):
 	apply_camera_shake(strength)
-
-
-func _on_Person2_attack_executed(strength):
-	apply_camera_shake(strength)
+	$Sounds/HitBall.play()

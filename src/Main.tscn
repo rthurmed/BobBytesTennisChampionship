@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/Main.gd" type="Script" id=1]
 [ext_resource path="res://src/game/char/Person.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://src/game/Bottle.tscn" type="PackedScene" id=7]
 [ext_resource path="res://modules/Juice/Camera/Shake.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/game/Bomb.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/sfx/hitHurt.wav" type="AudioStream" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 127.5 )
@@ -73,5 +74,10 @@ default_time = 0.1
 
 [node name="Pause" parent="." instance=ExtResource( 3 )]
 
-[connection signal="attack_executed" from="Layers/Game/Person1" to="." method="_on_Person1_attack_executed"]
-[connection signal="attack_executed" from="Layers/Game/Person2" to="." method="_on_Person2_attack_executed"]
+[node name="Sounds" type="Node" parent="."]
+
+[node name="HitBall" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource( 10 )
+
+[connection signal="attack_executed" from="Layers/Game/Person1" to="." method="_on_Person_attack_executed"]
+[connection signal="attack_executed" from="Layers/Game/Person2" to="." method="_on_Person_attack_executed"]
