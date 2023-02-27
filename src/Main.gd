@@ -19,6 +19,7 @@ onready var ball_start_position_char2 = $Layers/Positions/BallStart/Char2
 onready var game_layer = $Layers/Game
 onready var score_label_char1 = $Layers/Backdrop/ScoreDisplay/LabelChar1
 onready var score_label_char2 = $Layers/Backdrop/ScoreDisplay/LabelChar2
+onready var floor_highlight = $Layers/Backdrop/Floor/Highlight
 
 var ball: Ball
 var ball_on_char1 = true
@@ -52,6 +53,9 @@ func _on_Ball_touched_floor():
 		emit_signal("scored_point", not ball_on_char1)
 		return
 	
+	if ball_kicks == ball_kicks_to_fail - 1:
+		floor_highlight.blink(ball_on_char1)
+	
 	$Sounds/HitFloor.play()
 
 
@@ -64,6 +68,8 @@ func _on_FieldTransitionArea_body_exited(body):
 	
 	$DebugNode/FocusedLabel.text = 'focused: ' + str('char1' if ball_on_char1 else 'char2')
 	$DebugNode/KicksLabel.text = 'kicks: ' + str(ball_kicks)
+	
+	floor_highlight.stop()
 
 
 func _on_Main_scored_point(is_by_char1):
@@ -90,6 +96,9 @@ func _on_Main_scored_point(is_by_char1):
 	):
 		emit_signal("gameover", is_by_char1)
 		return
+	
+	# reset visual
+	floor_highlight.stop()
 	
 	# fancy sounds
 	$Sounds/Score.play()

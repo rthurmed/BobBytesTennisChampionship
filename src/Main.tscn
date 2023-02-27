@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/Main.gd" type="Script" id=1]
 [ext_resource path="res://src/game/char/Person.tscn" type="PackedScene" id=2]
@@ -13,9 +13,93 @@
 [ext_resource path="res://assets/sfx/ballFloor.wav" type="AudioStream" id=11]
 [ext_resource path="res://assets/score-display.png" type="Texture" id=12]
 [ext_resource path="res://assets/font/score_font.tres" type="DynamicFont" id=13]
+[ext_resource path="res://src/Highlight.gd" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 232, 40 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Char1:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Char2:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "blink_char1"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Char1:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.247059 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Char2:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "blink_char2"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Char2:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.247059 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Char1:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.5, 127.5 )
@@ -69,6 +153,7 @@ texture = ExtResource( 6 )
 polygon = PoolVector2Array( -7, -15, 0, -16, 7, -15, 7, 20, -7, 20 )
 
 [node name="Wall" type="StaticBody2D" parent="Layers/Backdrop"]
+visible = false
 collision_mask = 7
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Wall"]
@@ -80,6 +165,32 @@ collision_mask = 7
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Backdrop/Floor"]
 position = Vector2( 2, 33 )
 shape = SubResource( 2 )
+
+[node name="Highlight" type="HBoxContainer" parent="Layers/Backdrop/Floor"]
+margin_left = -199.0
+margin_top = -7.0
+margin_right = 201.0
+margin_bottom = 44.0
+alignment = 1
+script = ExtResource( 14 )
+
+[node name="Char1" type="ColorRect" parent="Layers/Backdrop/Floor/Highlight"]
+margin_right = 198.0
+margin_bottom = 51.0
+size_flags_horizontal = 3
+color = Color( 1, 1, 1, 0 )
+
+[node name="Char2" type="ColorRect" parent="Layers/Backdrop/Floor/Highlight"]
+margin_left = 202.0
+margin_right = 400.0
+margin_bottom = 51.0
+size_flags_horizontal = 3
+color = Color( 1, 1, 1, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Layers/Backdrop/Floor/Highlight"]
+anims/RESET = SubResource( 4 )
+anims/blink_char1 = SubResource( 3 )
+anims/blink_char2 = SubResource( 5 )
 
 [node name="PlayerWall" type="StaticBody2D" parent="Layers/Backdrop"]
 visible = false
