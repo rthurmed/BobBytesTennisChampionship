@@ -102,7 +102,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7.5, 127.5 )
+extents = Vector2( 1.5, 127.5 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -120,7 +120,7 @@ texture = ExtResource( 5 )
 
 [node name="ScoreDisplay" type="Node2D" parent="Layers/Backdrop"]
 unique_name_in_owner = true
-position = Vector2( 1, -160 )
+position = Vector2( 2, -162 )
 
 [node name="Sprite" type="Sprite" parent="Layers/Backdrop/ScoreDisplay"]
 texture = ExtResource( 12 )
@@ -142,18 +142,7 @@ margin_bottom = 16.0
 custom_fonts/font = ExtResource( 13 )
 text = "00"
 
-[node name="Net" type="StaticBody2D" parent="Layers/Backdrop"]
-position = Vector2( 1, -23 )
-collision_mask = 7
-
-[node name="Sprite" type="Sprite" parent="Layers/Backdrop/Net"]
-texture = ExtResource( 6 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Net"]
-polygon = PoolVector2Array( -7, -15, 0, -16, 7, -15, 7, 20, -7, 20 )
-
 [node name="Wall" type="StaticBody2D" parent="Layers/Backdrop"]
-visible = false
 collision_mask = 7
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Wall"]
@@ -192,21 +181,31 @@ anims/RESET = SubResource( 4 )
 anims/blink_char1 = SubResource( 3 )
 anims/blink_char2 = SubResource( 5 )
 
+[node name="Net" type="StaticBody2D" parent="Layers/Backdrop"]
+position = Vector2( 2, -23 )
+collision_mask = 7
+
+[node name="Sprite" type="Sprite" parent="Layers/Backdrop/Net"]
+texture = ExtResource( 6 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Net"]
+polygon = PoolVector2Array( -7, -15, 0, -16, 7, -15, 7, 20, -7, 20 )
+
 [node name="PlayerWall" type="StaticBody2D" parent="Layers/Backdrop"]
-visible = false
+position = Vector2( 2, 0 )
 collision_layer = 2
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Backdrop/PlayerWall"]
-position = Vector2( 1, -128 )
+position = Vector2( 0, -128 )
 shape = SubResource( 1 )
 
 [node name="FieldTransitionArea" type="Area2D" parent="Layers/Backdrop"]
-position = Vector2( -1, 0 )
+position = Vector2( 2, 0 )
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Backdrop/FieldTransitionArea"]
-position = Vector2( 2, -128 )
+position = Vector2( 0, -128 )
 shape = SubResource( 1 )
 
 [node name="Game" type="Node2D" parent="Layers"]
