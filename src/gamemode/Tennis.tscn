@@ -1,19 +1,24 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://src/Main.gd" type="Script" id=1]
-[ext_resource path="res://src/game/char/Person.tscn" type="PackedScene" id=2]
-[ext_resource path="res://modules/Pause/Pause.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/game/Ball.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/background.png" type="Texture" id=5]
-[ext_resource path="res://assets/net.png" type="Texture" id=6]
-[ext_resource path="res://modules/Debugging/DebugNode.tscn" type="PackedScene" id=7]
-[ext_resource path="res://modules/Juice/Camera/Shake.tscn" type="PackedScene" id=8]
-[ext_resource path="res://assets/sfx/pickupCoin.wav" type="AudioStream" id=9]
-[ext_resource path="res://assets/sfx/ballRacket.wav" type="AudioStream" id=10]
-[ext_resource path="res://assets/sfx/ballFloor.wav" type="AudioStream" id=11]
-[ext_resource path="res://assets/score-display.png" type="Texture" id=12]
-[ext_resource path="res://assets/font/score_font.tres" type="DynamicFont" id=13]
-[ext_resource path="res://src/Highlight.gd" type="Script" id=14]
+[ext_resource path="res://src/gamemode/state/GameOver.gd" type="Script" id=1]
+[ext_resource path="res://assets/background.png" type="Texture" id=2]
+[ext_resource path="res://assets/net.png" type="Texture" id=3]
+[ext_resource path="res://assets/sfx/ballFloor.wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/sfx/ballRacket.wav" type="AudioStream" id=5]
+[ext_resource path="res://assets/sfx/pickupCoin.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/score-display.png" type="Texture" id=7]
+[ext_resource path="res://src/gamemode/state/Starting.gd" type="Script" id=8]
+[ext_resource path="res://src/entity/ball/Ball.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/entity/char/Person.tscn" type="PackedScene" id=10]
+[ext_resource path="res://modules/Juice/Camera/Shake.tscn" type="PackedScene" id=11]
+[ext_resource path="res://modules/Pause/Pause.tscn" type="PackedScene" id=12]
+[ext_resource path="res://modules/StateMachine/StateMachine.tscn" type="PackedScene" id=13]
+[ext_resource path="res://modules/Debugging/DebugNode.tscn" type="PackedScene" id=14]
+[ext_resource path="res://assets/font/score_font.tres" type="DynamicFont" id=15]
+[ext_resource path="res://src/gamemode/Highlight.gd" type="Script" id=16]
+[ext_resource path="res://src/gamemode/Tennis.gd" type="Script" id=17]
+[ext_resource path="res://src/gamemode/state/Point.gd" type="Script" id=18]
+[ext_resource path="res://src/gamemode/state/Playing.gd" type="Script" id=19]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 232, 40 )
@@ -104,9 +109,9 @@ tracks/1/keys = {
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 1.5, 127.5 )
 
-[node name="Main" type="Node2D"]
-script = ExtResource( 1 )
-ball_scene = ExtResource( 4 )
+[node name="Tennis" type="Node2D"]
+script = ExtResource( 17 )
+ball_scene = ExtResource( 9 )
 
 [node name="Layers" type="Node2D" parent="."]
 
@@ -116,21 +121,21 @@ z_index = -10
 
 [node name="Background" type="Sprite" parent="Layers/Backdrop"]
 position = Vector2( 2, -79 )
-texture = ExtResource( 5 )
+texture = ExtResource( 2 )
 
 [node name="ScoreDisplay" type="Node2D" parent="Layers/Backdrop"]
 unique_name_in_owner = true
 position = Vector2( 2, -162 )
 
 [node name="Sprite" type="Sprite" parent="Layers/Backdrop/ScoreDisplay"]
-texture = ExtResource( 12 )
+texture = ExtResource( 7 )
 
 [node name="LabelChar1" type="Label" parent="Layers/Backdrop/ScoreDisplay"]
 margin_left = -33.0
 margin_top = -11.0
 margin_right = 1.0
 margin_bottom = 16.0
-custom_fonts/font = ExtResource( 13 )
+custom_fonts/font = ExtResource( 15 )
 text = "00"
 align = 2
 
@@ -139,7 +144,7 @@ margin_left = 4.0
 margin_top = -11.0
 margin_right = 38.0
 margin_bottom = 16.0
-custom_fonts/font = ExtResource( 13 )
+custom_fonts/font = ExtResource( 15 )
 text = "00"
 
 [node name="Wall" type="StaticBody2D" parent="Layers/Backdrop"]
@@ -161,7 +166,7 @@ margin_top = -7.0
 margin_right = 201.0
 margin_bottom = 44.0
 alignment = 1
-script = ExtResource( 14 )
+script = ExtResource( 16 )
 
 [node name="Char1" type="ColorRect" parent="Layers/Backdrop/Floor/Highlight"]
 margin_right = 198.0
@@ -186,7 +191,7 @@ position = Vector2( 2, -23 )
 collision_mask = 7
 
 [node name="Sprite" type="Sprite" parent="Layers/Backdrop/Net"]
-texture = ExtResource( 6 )
+texture = ExtResource( 3 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Net"]
 polygon = PoolVector2Array( -7, -15, 0, -16, 7, -15, 7, 20, -7, 20 )
@@ -210,10 +215,10 @@ shape = SubResource( 1 )
 
 [node name="Game" type="Node2D" parent="Layers"]
 
-[node name="Person1" parent="Layers/Game" instance=ExtResource( 2 )]
+[node name="Person1" parent="Layers/Game" instance=ExtResource( 10 )]
 position = Vector2( -160, -20 )
 
-[node name="Person2" parent="Layers/Game" instance=ExtResource( 2 )]
+[node name="Person2" parent="Layers/Game" instance=ExtResource( 10 )]
 position = Vector2( 160, -20 )
 opposite_side = true
 action_prefix = "p2_"
@@ -233,24 +238,24 @@ position = Vector2( 160, 0 )
 position = Vector2( 0, -76 )
 current = true
 
-[node name="Shake" parent="Camera2D" instance=ExtResource( 8 )]
+[node name="Shake" parent="Camera2D" instance=ExtResource( 11 )]
 camera_path = NodePath("..")
 default_time = 0.1
 
-[node name="Pause" parent="." instance=ExtResource( 3 )]
+[node name="Pause" parent="." instance=ExtResource( 12 )]
 
 [node name="Sounds" type="Node" parent="."]
 
 [node name="HitFloor" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 11 )
+stream = ExtResource( 4 )
 
 [node name="HitRacket" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 10 )
+stream = ExtResource( 5 )
 
 [node name="Score" type="AudioStreamPlayer" parent="Sounds"]
-stream = ExtResource( 9 )
+stream = ExtResource( 6 )
 
-[node name="DebugNode" parent="." instance=ExtResource( 7 )]
+[node name="DebugNode" parent="." instance=ExtResource( 14 )]
 margin_left = -193.0
 margin_top = -189.0
 margin_right = -193.0
@@ -280,8 +285,21 @@ margin_right = 93.0
 margin_bottom = 62.0
 text = "points char2: 0"
 
-[connection signal="gameover" from="." to="." method="_on_Main_gameover"]
-[connection signal="scored_point" from="." to="." method="_on_Main_scored_point"]
+[node name="StateMachine" parent="." instance=ExtResource( 13 )]
+initial_state = NodePath("Starting")
+
+[node name="Starting" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+
+[node name="Playing" type="Node" parent="StateMachine"]
+script = ExtResource( 19 )
+
+[node name="Point" type="Node" parent="StateMachine"]
+script = ExtResource( 18 )
+
+[node name="GameOver" type="Node" parent="StateMachine"]
+script = ExtResource( 1 )
+
 [connection signal="body_exited" from="Layers/Backdrop/FieldTransitionArea" to="." method="_on_FieldTransitionArea_body_exited"]
 [connection signal="attack_executed" from="Layers/Game/Person1" to="." method="_on_Person_attack_executed"]
 [connection signal="attack_executed" from="Layers/Game/Person2" to="." method="_on_Person_attack_executed"]

@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "RigidBody2D",
 "class": "Ball",
 "language": "GDScript",
-"path": "res://src/game/Ball.gd"
+"path": "res://src/entity/ball/Ball.gd"
 }, {
 "base": "Node2D",
 "class": "Stage",
 "language": "GDScript",
-"path": "res://src/Main.gd"
+"path": "res://src/gamemode/Tennis.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Jetpack Tennis"
-run/main_scene="res://src/Main.tscn"
+run/main_scene="res://src/gamemode/Tennis.tscn"
 config/icon="res://icon.png"
 
 [display]
