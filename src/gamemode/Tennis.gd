@@ -20,6 +20,7 @@ onready var floor_highlight = $Layers/Backdrop/Floor/Highlight
 onready var sound_hit_floor = $Sound/HitFloor
 onready var sound_hit_racket = $Sound/HitRacket
 onready var sound_score = $Sound/Score
+onready var sound_win = $Sound/Win
 
 var ball: Ball
 var ball_on_char1 = true

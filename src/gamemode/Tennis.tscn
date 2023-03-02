@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://src/gamemode/state/GameOver.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.png" type="Texture" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://src/gamemode/state/Point.gd" type="Script" id=18]
 [ext_resource path="res://src/gamemode/state/Playing.gd" type="Script" id=19]
 [ext_resource path="res://assets/font/Last Spaceship.ttf" type="DynamicFontData" id=20]
+[ext_resource path="res://assets/sfx/winMatch.wav" type="AudioStream" id=21]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 232, 40 )
@@ -290,12 +291,19 @@ position = Vector2( 160, 0 )
 
 [node name="HitFloor" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource( 4 )
+volume_db = -13.0
 
 [node name="HitRacket" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource( 5 )
+volume_db = -13.0
 
 [node name="Score" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource( 6 )
+volume_db = -13.0
+
+[node name="Win" type="AudioStreamPlayer" parent="Sound"]
+stream = ExtResource( 21 )
+volume_db = -13.0
 
 [node name="StateMachine" parent="." instance=ExtResource( 13 )]
 initial_state = NodePath("Starting")
