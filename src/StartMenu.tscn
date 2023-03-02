@@ -1,0 +1,338 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/StartMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/texture/stripes.png" type="Texture" id=2]
+[ext_resource path="res://assets/background.png" type="Texture" id=3]
+[ext_resource path="res://assets/texture/gradient.png" type="Texture" id=4]
+[ext_resource path="res://assets/font/Last Spaceship.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+outline_size = 2
+outline_color = Color( 0.243137, 0.215686, 0.360784, 1 )
+use_mipmaps = true
+extra_spacing_top = 16
+extra_spacing_bottom = -16
+extra_spacing_space = 4
+font_data = ExtResource( 5 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Menu:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 92, 65 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/Menu:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Menu/Buttons:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 36 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer/Menu/Title:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/Menu/Title:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/Menu/Buttons:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Background:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 201, 147 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("CanvasLayer/Gradient:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.498039 ) ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("CanvasLayer/Gradient:rect_position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "enter"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Menu/Buttons:rect_position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.8, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 56 ), Vector2( 0, 56 ), Vector2( 0, 36 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/Menu/Title:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Menu/Title:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 40 ), Vector2( 0, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer/Menu/Buttons:modulate")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.8, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("CanvasLayer/Gradient:modulate")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.498039 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "exit"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("CanvasLayer/Menu/Title:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CanvasLayer/Menu/Buttons:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("CanvasLayer/Gradient:modulate")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.498039 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CanvasLayer/Gradient:rect_position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 10 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Background:position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.3, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 201, 147 ), Vector2( 201, 147 ), Vector2( 201, 117 ) ]
+}
+
+[node name="StartMenu" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 201, 147 )
+texture = ExtResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Stripes" type="TextureRect" parent="CanvasLayer"]
+visible = false
+modulate = Color( 1, 1, 1, 0.498039 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 2 )
+stretch_mode = 2
+
+[node name="Gradient" type="TextureRect" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0.498039 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 432.0
+margin_bottom = 272.0
+texture = ExtResource( 4 )
+stretch_mode = 2
+
+[node name="Menu" type="Control" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -108.0
+margin_top = -55.0
+margin_right = 108.0
+margin_bottom = 55.0002
+
+[node name="Title" type="Label" parent="CanvasLayer/Menu"]
+margin_right = 216.0
+margin_bottom = 32.0001
+custom_fonts/font = SubResource( 1 )
+text = "JETPACK TENNIS"
+align = 1
+
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer/Menu"]
+margin_top = 36.0
+margin_right = 216.0
+margin_bottom = 110.0
+
+[node name="NormalMode" type="Button" parent="CanvasLayer/Menu/Buttons"]
+margin_right = 216.0
+margin_bottom = 22.0
+text = "PLAY 1 V 1"
+flat = true
+
+[node name="HotPotato" type="Button" parent="CanvasLayer/Menu/Buttons"]
+margin_top = 26.0
+margin_right = 216.0
+margin_bottom = 48.0
+disabled = true
+text = "HOT POTATO"
+flat = true
+
+[node name="BottleTennis" type="Button" parent="CanvasLayer/Menu/Buttons"]
+margin_top = 52.0
+margin_right = 216.0
+margin_bottom = 74.0
+disabled = true
+text = "BOTTLE TENNIS"
+flat = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 3 )
+anims/enter = SubResource( 2 )
+anims/exit = SubResource( 6 )
+
+[connection signal="button_up" from="CanvasLayer/Menu/Buttons/NormalMode" to="." method="_on_NormalMode_button_up"]
+[connection signal="button_up" from="CanvasLayer/Menu/Buttons/HotPotato" to="." method="_on_HotPotato_button_up"]
+[connection signal="button_up" from="CanvasLayer/Menu/Buttons/BottleTennis" to="." method="_on_BottleTennis_button_up"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

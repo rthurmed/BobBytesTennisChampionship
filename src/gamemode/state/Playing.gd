@@ -55,6 +55,9 @@ func _on_FieldTransitionArea_body_exited(body):
 	if not active(): return
 	if not body.is_in_group('ball'): return
 	
+	# FIXME: possible to bug this if the ball falls to the same side
+	# use 2 full field areas to register the transition
+	
 	owner.ball_on_char1 = not owner.ball_on_char1
 	ball_kicks = 0
 	
