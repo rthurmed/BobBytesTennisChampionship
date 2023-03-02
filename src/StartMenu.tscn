@@ -278,8 +278,8 @@ stretch_mode = 2
 modulate = Color( 1, 1, 1, 0.498039 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 432.0
-margin_bottom = 272.0
+margin_right = 832.0
+margin_bottom = 512.0
 texture = ExtResource( 4 )
 stretch_mode = 2
 
