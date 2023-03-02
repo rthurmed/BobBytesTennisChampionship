@@ -181,6 +181,18 @@ tracks/11/keys = {
 "update": 0,
 "values": [ Vector2( 201, 147 ) ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("CanvasLayer/Menu:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=7]
 resource_name = "exit"
@@ -331,6 +343,18 @@ tracks/6/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
+tracks/7/type = "value"
+tracks/7/path = NodePath("CanvasLayer/Menu:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, true ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "start"
@@ -395,6 +419,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.498039 ), Color( 1, 1, 1, 0.498039 ) ]
 }
+tracks/5/type = "value"
+tracks/5/path = NodePath("CanvasLayer/Menu:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 1.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, false ]
+}
 
 [node name="GamemodeSelect" type="Node2D"]
 script = ExtResource( 1 )
@@ -419,21 +455,20 @@ stretch_mode = 2
 modulate = Color( 1, 1, 1, 0.498039 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 801.0
-margin_bottom = 480.0
 texture = ExtResource( 4 )
 stretch_mode = 2
 
 [node name="Menu" type="Control" parent="CanvasLayer"]
+visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 93.0
-margin_top = 35.0
-margin_right = 298.0
-margin_bottom = 206.0
+margin_left = -107.0
+margin_top = -85.0
+margin_right = 98.0
+margin_bottom = 86.0
 
 [node name="NormalMode" type="Button" parent="CanvasLayer/Menu"]
 margin_top = 3.0
@@ -495,18 +530,16 @@ custom_styles/pressed = ExtResource( 11 )
 custom_styles/focus = ExtResource( 13 )
 custom_styles/disabled = ExtResource( 12 )
 custom_styles/normal = ExtResource( 11 )
-disabled = true
 icon = ExtResource( 8 )
 flat = true
 
 [node name="Label" type="Label" parent="CanvasLayer/Menu/BottleTennis"]
-modulate = Color( 1, 1, 1, 0.498039 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -15.0
 custom_fonts/font = ExtResource( 14 )
-text = "BOTTLE TENNIS"
+text = "BADMINGTON"
 align = 1
 
 [node name="TrainingMode" type="Button" parent="CanvasLayer/Menu"]
@@ -568,10 +601,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 64.0
-margin_top = 52.0
-margin_right = 336.0
-margin_bottom = 119.0
+margin_left = -136.0
+margin_top = -68.0
+margin_right = 136.0
+margin_bottom = -1.0
 rect_pivot_offset = Vector2( 136, 0 )
 custom_fonts/font = SubResource( 4 )
 text = "bob byte's tennis championship"
