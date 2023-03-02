@@ -3,6 +3,9 @@ extends State
 
 onready var ball_start_position_char1 = $"../../Layers/Positions/BallStart/Char1".global_position
 onready var ball_start_position_char2 = $"../../Layers/Positions/BallStart/Char2".global_position
+onready var animation = $AnimationPlayer
+onready var person1 = $"../../Layers/Game/Person1"
+onready var person2 = $"../../Layers/Game/Person2"
 
 var ball_kicks = 0
 
@@ -15,9 +18,13 @@ func physics_process(_delta: float): pass
 func enter():
 	ball_kicks = 0
 	spawn_new_ball()
+	animation.play("increasing_strength")
 
 
-func exit(): pass
+func exit():
+	animation.stop(true)
+	person1.attack_strength_modifier = 0
+	person2.attack_strength_modifier = 0
 
 
 func spawn_new_ball():

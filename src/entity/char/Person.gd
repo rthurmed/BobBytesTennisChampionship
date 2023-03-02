@@ -10,6 +10,7 @@ export var attack_angle_values = {
 	'high': deg2rad(60),
 	'low': deg2rad(30)
 }
+export var attack_strength_modifier = 1
 
 onready var visual_instance = $VisualInstance
 onready var colliders = $Colliders
@@ -70,17 +71,18 @@ func attack(body: RigidBody2D, strength):
 	var horizontal_modifier = 1 if opposite_side else -1
 	var angle = attack_angle
 	var direction = Vector2.LEFT
+	var modified_strength = strength * attack_strength_modifier
 	
 	direction = direction.rotated(angle)
 	direction.x = direction.x * horizontal_modifier
 	
-	$DebugNode/AttackStrengthLabel.text = str("strength: ", strength)
+	$DebugNode/AttackStrengthLabel.text = str("strength: ", modified_strength)
 	$DebugNode/AttackAngleLabel.text = str("angle: ", rad2deg(angle), "º")
 	
 	body.set_deferred("linear_velocity", Vector2.ZERO)
-	body.call_deferred("apply_central_impulse", direction * strength)
+	body.call_deferred("apply_central_impulse", direction * modified_strength)
 	
-	emit_signal("attack_executed", strength)
+	emit_signal("attack_executed", modified_strength)
 
 
 func _on_StateMachine_transition(state_name):
