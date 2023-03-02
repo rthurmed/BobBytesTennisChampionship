@@ -113,6 +113,14 @@ extents = Vector2( 1.5, 127.5 )
 script = ExtResource( 17 )
 ball_scene = ExtResource( 9 )
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -76 )
+current = true
+
+[node name="Shake" parent="Camera2D" instance=ExtResource( 11 )]
+camera_path = NodePath("..")
+default_time = 0.1
+
 [node name="Layers" type="Node2D" parent="."]
 
 [node name="Backdrop" type="Node2D" parent="Layers"]
@@ -234,56 +242,18 @@ position = Vector2( -160, 0 )
 [node name="Char2" type="Position2D" parent="Layers/Positions/BallStart"]
 position = Vector2( 160, 0 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 0, -76 )
-current = true
-
-[node name="Shake" parent="Camera2D" instance=ExtResource( 11 )]
-camera_path = NodePath("..")
-default_time = 0.1
-
 [node name="Pause" parent="." instance=ExtResource( 12 )]
 
-[node name="Sounds" type="Node" parent="."]
+[node name="Sound" type="Node" parent="."]
 
-[node name="HitFloor" type="AudioStreamPlayer" parent="Sounds"]
+[node name="HitFloor" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource( 4 )
 
-[node name="HitRacket" type="AudioStreamPlayer" parent="Sounds"]
+[node name="HitRacket" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource( 5 )
 
-[node name="Score" type="AudioStreamPlayer" parent="Sounds"]
+[node name="Score" type="AudioStreamPlayer" parent="Sound"]
 stream = ExtResource( 6 )
-
-[node name="DebugNode" parent="." instance=ExtResource( 14 )]
-margin_left = -193.0
-margin_top = -189.0
-margin_right = -193.0
-margin_bottom = -189.0
-rect_scale = Vector2( 0.5, 0.5 )
-
-[node name="FocusedLabel" type="Label" parent="DebugNode"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "focused: char1"
-
-[node name="KicksLabel" type="Label" parent="DebugNode"]
-margin_top = 16.0
-margin_right = 93.0
-margin_bottom = 30.0
-text = "kicks: 0"
-
-[node name="PointsChar1Label" type="Label" parent="DebugNode"]
-margin_top = 32.0
-margin_right = 93.0
-margin_bottom = 46.0
-text = "points char1: 0"
-
-[node name="PointsChar2Label" type="Label" parent="DebugNode"]
-margin_top = 48.0
-margin_right = 93.0
-margin_bottom = 62.0
-text = "points char2: 0"
 
 [node name="StateMachine" parent="." instance=ExtResource( 13 )]
 initial_state = NodePath("Starting")
@@ -297,9 +267,51 @@ script = ExtResource( 19 )
 [node name="Point" type="Node" parent="StateMachine"]
 script = ExtResource( 18 )
 
-[node name="GameOver" type="Node" parent="StateMachine"]
+[node name="Reset" type="Timer" parent="StateMachine/Point"]
+wait_time = 0.5
+one_shot = true
+
+[node name="Gameover" type="Node" parent="StateMachine"]
 script = ExtResource( 1 )
 
-[connection signal="body_exited" from="Layers/Backdrop/FieldTransitionArea" to="." method="_on_FieldTransitionArea_body_exited"]
+[node name="DebugNode" parent="." instance=ExtResource( 14 )]
+margin_left = -193.0
+margin_top = -189.0
+margin_right = -193.0
+margin_bottom = -189.0
+rect_scale = Vector2( 0.5, 0.5 )
+
+[node name="StateLabel" type="Label" parent="DebugNode"]
+margin_right = 95.0
+margin_bottom = 14.0
+text = "state: Playingw"
+
+[node name="FocusedLabel" type="Label" parent="DebugNode"]
+margin_top = 16.0
+margin_right = 93.0
+margin_bottom = 30.0
+text = "focused: char1"
+
+[node name="KicksLabel" type="Label" parent="DebugNode"]
+margin_top = 32.0
+margin_right = 93.0
+margin_bottom = 46.0
+text = "kicks: 0"
+
+[node name="PointsChar1Label" type="Label" parent="DebugNode"]
+margin_top = 48.0
+margin_right = 95.0
+margin_bottom = 62.0
+text = "points char1: 0"
+
+[node name="PointsChar2Label" type="Label" parent="DebugNode"]
+margin_top = 64.0
+margin_right = 95.0
+margin_bottom = 78.0
+text = "points char2: 0"
+
+[connection signal="body_exited" from="Layers/Backdrop/FieldTransitionArea" to="StateMachine/Playing" method="_on_FieldTransitionArea_body_exited"]
 [connection signal="attack_executed" from="Layers/Game/Person1" to="." method="_on_Person_attack_executed"]
 [connection signal="attack_executed" from="Layers/Game/Person2" to="." method="_on_Person_attack_executed"]
+[connection signal="transition" from="StateMachine" to="." method="_on_StateMachine_transition"]
+[connection signal="timeout" from="StateMachine/Point/Reset" to="StateMachine/Point" method="_on_Reset_timeout"]
