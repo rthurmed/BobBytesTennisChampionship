@@ -32,8 +32,7 @@ func start_exit_sequence(gamemode):
 		return
 	
 	selected_gamemode_path = path
-	# TODO: animation
-	finish_exit_sequence()
+	animation.play("exit")
 
 
 func finish_exit_sequence():
@@ -67,3 +66,6 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "showSelection":
 		waiting_starting_input = false
 		first_button.grab_focus()
+	
+	if anim_name == "exit":
+		finish_exit_sequence()
