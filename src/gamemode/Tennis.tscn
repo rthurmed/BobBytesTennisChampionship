@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://src/gamemode/state/GameOver.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.png" type="Texture" id=2]
@@ -21,6 +21,11 @@
 [ext_resource path="res://src/gamemode/state/Playing.gd" type="Script" id=19]
 [ext_resource path="res://assets/font/Last Spaceship.ttf" type="DynamicFontData" id=20]
 [ext_resource path="res://assets/sfx/winMatch.wav" type="AudioStream" id=21]
+[ext_resource path="res://assets/buttons/custom_button_disabled.tres" type="StyleBox" id=22]
+[ext_resource path="res://assets/buttons/custom_button_normal.tres" type="StyleBox" id=23]
+[ext_resource path="res://assets/buttons/custom_button_focus.tres" type="StyleBox" id=24]
+[ext_resource path="res://assets/buttons/button_back.tres" type="Texture" id=25]
+[ext_resource path="res://src/gamemode/Overlay.gd" type="Script" id=26]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 232, 40 )
@@ -287,6 +292,30 @@ position = Vector2( 160, 0 )
 
 [node name="Pause" parent="." instance=ExtResource( 12 )]
 
+[node name="Overlay" type="CanvasLayer" parent="."]
+pause_mode = 2
+layer = 4
+script = ExtResource( 26 )
+
+[node name="Options" type="HBoxContainer" parent="Overlay"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -40.0
+margin_bottom = 24.0
+alignment = 2
+
+[node name="BackButton" type="Button" parent="Overlay/Options"]
+margin_left = 12.0
+margin_right = 40.0
+margin_bottom = 24.0
+focus_neighbour_left = NodePath("../BottleTennis")
+custom_styles/hover = ExtResource( 24 )
+custom_styles/pressed = ExtResource( 23 )
+custom_styles/focus = ExtResource( 24 )
+custom_styles/disabled = ExtResource( 22 )
+custom_styles/normal = ExtResource( 23 )
+icon = ExtResource( 25 )
+
 [node name="Sound" type="Node" parent="."]
 
 [node name="HitFloor" type="AudioStreamPlayer" parent="Sound"]
@@ -406,6 +435,7 @@ uppercase = true
 [connection signal="body_exited" from="Layers/Backdrop/FieldTransitionArea" to="StateMachine/Playing" method="_on_FieldTransitionArea_body_exited"]
 [connection signal="attack_executed" from="Layers/Game/Person1" to="." method="_on_Person_attack_executed"]
 [connection signal="attack_executed" from="Layers/Game/Person2" to="." method="_on_Person_attack_executed"]
+[connection signal="button_up" from="Overlay/Options/BackButton" to="Overlay" method="_on_BackButton_button_up"]
 [connection signal="transition" from="StateMachine" to="." method="_on_StateMachine_transition"]
 [connection signal="timeout" from="StateMachine/Point/Reset" to="StateMachine/Point" method="_on_Reset_timeout"]
 [connection signal="animation_finished" from="StateMachine/Gameover/AnimationPlayer" to="StateMachine/Gameover" method="_on_AnimationPlayer_animation_finished"]
