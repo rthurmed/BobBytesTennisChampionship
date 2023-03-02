@@ -7,6 +7,9 @@ const COLLISION_DISABLED = 1
 
 signal touched_floor
 
+var holder = Enums.BallHolder.Player1
+var kicks = 0
+
 
 func set_collision(enabled):
 	collision_layer = COLLISION_ENABLED if enabled else COLLISION_DISABLED

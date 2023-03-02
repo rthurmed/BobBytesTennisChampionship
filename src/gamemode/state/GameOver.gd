@@ -18,9 +18,15 @@ func enter():
 	
 	owner.ball.set_collision(false)
 	
-	var char1_won = owner.points_char1 > owner.points_char2
-	var winner = "PLAYER 1" if char1_won else "PLAYER 2"
-	gameover_title.text = str(winner, " WON!")
+	var tie = owner.points_char1 == owner.points_char2
+	
+	if tie:
+		gameover_title.text = str("TIE!")
+	
+	if not tie:
+		var char1_won = owner.points_char1 > owner.points_char2
+		var winner = "PLAYER 1" if char1_won else "PLAYER 2"
+		gameover_title.text = str(winner, " WON!")
 	
 	owner.sound_win.play()
 	

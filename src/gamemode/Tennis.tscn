@@ -1,12 +1,11 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://src/gamemode/state/GameOver.gd" type="Script" id=1]
-[ext_resource path="res://assets/background.png" type="Texture" id=2]
-[ext_resource path="res://assets/net.png" type="Texture" id=3]
+[ext_resource path="res://src/gamemode/util/Field.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/gamemode/util/ScoreDisplay.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/sfx/ballFloor.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/sfx/ballRacket.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/sfx/pickupCoin.wav" type="AudioStream" id=6]
-[ext_resource path="res://assets/score-display.png" type="Texture" id=7]
 [ext_resource path="res://src/gamemode/state/Starting.gd" type="Script" id=8]
 [ext_resource path="res://src/entity/ball/Ball.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/entity/char/Person.tscn" type="PackedScene" id=10]
@@ -14,7 +13,6 @@
 [ext_resource path="res://modules/Pause/Pause.tscn" type="PackedScene" id=12]
 [ext_resource path="res://modules/StateMachine/StateMachine.tscn" type="PackedScene" id=13]
 [ext_resource path="res://modules/Debugging/DebugNode.tscn" type="PackedScene" id=14]
-[ext_resource path="res://assets/font/score_font.tres" type="DynamicFont" id=15]
 [ext_resource path="res://src/gamemode/Highlight.gd" type="Script" id=16]
 [ext_resource path="res://src/gamemode/Tennis.gd" type="Script" id=17]
 [ext_resource path="res://src/gamemode/state/Point.gd" type="Script" id=18]
@@ -23,10 +21,7 @@
 [ext_resource path="res://assets/sfx/winMatch.wav" type="AudioStream" id=21]
 [ext_resource path="res://src/gamemode/util/Overlay.tscn" type="PackedScene" id=22]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 232, 40 )
-
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=13]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("Char1:color")
@@ -53,7 +48,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=14]
 resource_name = "blink_char1"
 loop = true
 tracks/0/type = "value"
@@ -81,7 +76,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=15]
 resource_name = "blink_char2"
 loop = true
 tracks/0/type = "value"
@@ -109,19 +104,10 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7, 127.5 )
-
-[sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 104, 102 )
-
-[sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 104, 102 )
-
 [sub_resource type="Animation" id=10]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("../../Layers/Game/Person1:attack_strength_modifier")
+tracks/0/path = NodePath("../../Game/Person1:attack_strength_modifier")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -133,7 +119,7 @@ tracks/0/keys = {
 "values": [ 1 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../../Layers/Game/Person2:attack_strength_modifier")
+tracks/1/path = NodePath("../../Game/Person2:attack_strength_modifier")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -149,7 +135,7 @@ tracks/1/keys = {
 resource_name = "increasing_strength"
 length = 10.0
 tracks/0/type = "value"
-tracks/0/path = NodePath("../../Layers/Game/Person1:attack_strength_modifier")
+tracks/0/path = NodePath("../../Game/Person1:attack_strength_modifier")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -161,7 +147,7 @@ tracks/0/keys = {
 "values": [ 1, 3 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../../Layers/Game/Person2:attack_strength_modifier")
+tracks/1/path = NodePath("../../Game/Person2:attack_strength_modifier")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -226,30 +212,22 @@ current = true
 camera_path = NodePath("..")
 default_time = 0.1
 
-[node name="Layers" type="Node2D" parent="."]
+[node name="ScoreDisplay" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -163 )
 
-[node name="Backdrop" type="Node2D" parent="Layers"]
-z_index = -10
+[node name="Game" type="Node2D" parent="."]
 
-[node name="Background" type="Sprite" parent="Layers/Backdrop"]
-position = Vector2( 1, -79 )
-texture = ExtResource( 2 )
+[node name="Field" parent="Game" instance=ExtResource( 2 )]
 
-[node name="Wall" type="StaticBody2D" parent="Layers/Backdrop"]
-position = Vector2( -1, 0 )
-collision_mask = 7
+[node name="Person1" parent="Game" instance=ExtResource( 10 )]
+position = Vector2( -162, -20 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Wall"]
-polygon = PoolVector2Array( 201, 43, 201, -196, -199, -196, -199, 43, -253, 42, -248, -267.594, 229.308, -286, 250, -235, 251, 43 )
+[node name="Person2" parent="Game" instance=ExtResource( 10 )]
+position = Vector2( 158, -20 )
+opposite_side = true
+action_prefix = "p2_"
 
-[node name="Floor" type="StaticBody2D" parent="Layers/Backdrop" groups=["floor"]]
-collision_mask = 7
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Backdrop/Floor"]
-position = Vector2( 2, 33 )
-shape = SubResource( 2 )
-
-[node name="Highlight" type="HBoxContainer" parent="Layers/Backdrop/Floor"]
+[node name="Highlight" type="HBoxContainer" parent="."]
 margin_left = -199.0
 margin_top = -7.0
 margin_right = 201.0
@@ -257,100 +235,23 @@ margin_bottom = 44.0
 alignment = 1
 script = ExtResource( 16 )
 
-[node name="Char1" type="ColorRect" parent="Layers/Backdrop/Floor/Highlight"]
+[node name="Char1" type="ColorRect" parent="Highlight"]
 margin_right = 198.0
 margin_bottom = 51.0
 size_flags_horizontal = 3
 color = Color( 1, 1, 1, 0 )
 
-[node name="Char2" type="ColorRect" parent="Layers/Backdrop/Floor/Highlight"]
+[node name="Char2" type="ColorRect" parent="Highlight"]
 margin_left = 202.0
 margin_right = 400.0
 margin_bottom = 51.0
 size_flags_horizontal = 3
 color = Color( 1, 1, 1, 0 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Layers/Backdrop/Floor/Highlight"]
-anims/RESET = SubResource( 4 )
-anims/blink_char1 = SubResource( 3 )
-anims/blink_char2 = SubResource( 5 )
-
-[node name="Net" type="StaticBody2D" parent="Layers/Backdrop"]
-position = Vector2( 0, -23 )
-collision_mask = 7
-
-[node name="Sprite" type="Sprite" parent="Layers/Backdrop/Net"]
-texture = ExtResource( 3 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Net"]
-polygon = PoolVector2Array( -7, -15, 0, -16, 7, -15, 7, 20, -7, 20 )
-
-[node name="PlayerWall" type="StaticBody2D" parent="Layers/Backdrop"]
-collision_layer = 2
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Backdrop/PlayerWall"]
-position = Vector2( 0, -128 )
-shape = SubResource( 1 )
-
-[node name="ScoreDisplay" type="Node2D" parent="Layers"]
-unique_name_in_owner = true
-position = Vector2( 1, -162 )
-
-[node name="Sprite" type="Sprite" parent="Layers/ScoreDisplay"]
-texture = ExtResource( 7 )
-
-[node name="LabelChar1" type="Label" parent="Layers/ScoreDisplay"]
-margin_left = -33.0
-margin_top = -11.0
-margin_right = 1.0
-margin_bottom = 16.0
-custom_fonts/font = ExtResource( 15 )
-text = "00"
-align = 2
-
-[node name="LabelChar2" type="Label" parent="Layers/ScoreDisplay"]
-margin_left = 4.0
-margin_top = -11.0
-margin_right = 38.0
-margin_bottom = 16.0
-custom_fonts/font = ExtResource( 15 )
-text = "00"
-
-[node name="Game" type="Node2D" parent="Layers"]
-
-[node name="Person1" parent="Layers/Game" instance=ExtResource( 10 )]
-position = Vector2( -162, -20 )
-
-[node name="Person2" parent="Layers/Game" instance=ExtResource( 10 )]
-position = Vector2( 158, -20 )
-opposite_side = true
-action_prefix = "p2_"
-
-[node name="AreaField1" type="Area2D" parent="Layers/Game"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Game/AreaField1"]
-position = Vector2( -104, -102 )
-shape = SubResource( 11 )
-
-[node name="AreaField2" type="Area2D" parent="Layers/Game"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Game/AreaField2"]
-position = Vector2( 104, -102 )
-shape = SubResource( 12 )
-
-[node name="Positions" type="Node2D" parent="Layers"]
-
-[node name="BallStart" type="Node2D" parent="Layers/Positions"]
-position = Vector2( 0, -180 )
-
-[node name="Char1" type="Position2D" parent="Layers/Positions/BallStart"]
-position = Vector2( -160, 0 )
-
-[node name="Char2" type="Position2D" parent="Layers/Positions/BallStart"]
-position = Vector2( 160, 0 )
-
-[node name="Areas" type="Node2D" parent="Layers/Positions"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Highlight"]
+anims/RESET = SubResource( 13 )
+anims/blink_char1 = SubResource( 14 )
+anims/blink_char2 = SubResource( 15 )
 
 [node name="DebugNode" parent="." instance=ExtResource( 14 )]
 margin_left = -193.0
@@ -476,10 +377,9 @@ root_node = NodePath("../../..")
 anims/RESET = SubResource( 7 )
 anims/gameover = SubResource( 6 )
 
-[connection signal="attack_executed" from="Layers/Game/Person1" to="." method="_on_Person_attack_executed"]
-[connection signal="attack_executed" from="Layers/Game/Person2" to="." method="_on_Person_attack_executed"]
-[connection signal="body_entered" from="Layers/Game/AreaField1" to="StateMachine/Playing" method="_on_AreaField1_body_entered"]
-[connection signal="body_entered" from="Layers/Game/AreaField2" to="StateMachine/Playing" method="_on_AreaField2_body_entered"]
+[connection signal="changed_field" from="Game/Field" to="StateMachine/Playing" method="_on_Field_changed_field"]
+[connection signal="attack_executed" from="Game/Person1" to="." method="_on_Person_attack_executed"]
+[connection signal="attack_executed" from="Game/Person2" to="." method="_on_Person_attack_executed"]
 [connection signal="transition" from="StateMachine" to="." method="_on_StateMachine_transition"]
 [connection signal="timeout" from="StateMachine/Point/Reset" to="StateMachine/Point" method="_on_Reset_timeout"]
 [connection signal="animation_finished" from="StateMachine/Gameover/AnimationPlayer" to="StateMachine/Gameover" method="_on_AnimationPlayer_animation_finished"]

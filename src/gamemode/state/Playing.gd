@@ -1,23 +1,27 @@
 extends State
 
 
-onready var ball_start_position_char1 = $"../../Layers/Positions/BallStart/Char1".global_position
-onready var ball_start_position_char2 = $"../../Layers/Positions/BallStart/Char2".global_position
 onready var animation = $AnimationPlayer
-onready var person1 = $"../../Layers/Game/Person1"
-onready var person2 = $"../../Layers/Game/Person2"
+onready var person1 = $"../../Game/Person1"
+onready var person2 = $"../../Game/Person2"
 
 var ball_kicks = 0
 
 
-func handle_input(_event: InputEvent): pass
-func process(_delta: float): pass
-func physics_process(_delta: float): pass
+func process(delta: float):
+	owner.time_of_play += delta
+	owner.score_display.set_time(owner.duration - owner.time_of_play)
+	
+	if owner.time_of_play > owner.duration:
+		transition("Gameover")
+		return
 
 
 func enter():
 	ball_kicks = 0
 	spawn_new_ball()
+	# TODO: replace animation with something manual on process()
+	# using lerp() and clamp()
 	animation.play("increasing_strength")
 
 
@@ -28,9 +32,9 @@ func exit():
 
 
 func spawn_new_ball():
-	var target_position = ball_start_position_char1
-	if not owner.ball_on_char1:
-		target_position = ball_start_position_char2
+	var target_position = owner.field.ball_start1.global_position
+	if owner.next_holder == Enums.BallHolder.Player2:
+		target_position = owner.field.ball_start2.global_position
 	
 	owner.ball = owner.ball_scene.instance()
 	owner.ball.global_position = target_position
@@ -38,18 +42,8 @@ func spawn_new_ball():
 	
 	owner.game_layer.call_deferred("add_child", owner.ball)
 	
-	$"../../DebugNode/FocusedLabel".text = 'focused: ' + str('char1' if owner.ball_on_char1 else 'char2')
-	$"../../DebugNode/KicksLabel".text = 'kicks: ' + str(ball_kicks)
-
-
-func change_ball_holder(into_char1_field):
-	owner.ball_on_char1 = into_char1_field
-	ball_kicks = 0
-	
-	$"../../DebugNode/FocusedLabel".text = 'focused: ' + str('char1' if owner.ball_on_char1 else 'char2')
-	$"../../DebugNode/KicksLabel".text = 'kicks: ' + str(ball_kicks)
-	
-	owner.floor_highlight.stop()
+	$"../../DebugNode/FocusedLabel".text = 'focused: ' + str('char', owner.ball.holder)
+	$"../../DebugNode/KicksLabel".text = 'kicks: ' + str(owner.ball.kicks)
 
 
 func _on_Ball_touched_floor():
@@ -57,24 +51,21 @@ func _on_Ball_touched_floor():
 	
 	owner.sound_hit_floor.play()
 	
-	ball_kicks = ball_kicks + 1
-	$"../../DebugNode/KicksLabel".text = 'kicks: ' + str(ball_kicks)
+	owner.ball.kicks = owner.ball.kicks + 1
+	$"../../DebugNode/KicksLabel".text = 'kicks: ' + str(owner.ball.kicks)
 	
-	if ball_kicks >= owner.ball_kicks_to_fail:
+	if owner.ball.kicks >= owner.ball_kicks_to_fail:
 		transition("Point")
 		return
 	
-	if ball_kicks == owner.ball_kicks_to_fail - 1:
-		owner.floor_highlight.blink(owner.ball_on_char1)
+	if owner.ball.kicks == owner.ball_kicks_to_fail - 1:
+		owner.highlight.blink(owner.ball.holder)
 
 
-func _on_AreaField1_body_entered(body):
-	if not active(): return
-	if not body.is_in_group('ball'): return
-	change_ball_holder(true)
-
-
-func _on_AreaField2_body_entered(body):
-	if not active(): return
-	if not body.is_in_group('ball'): return
-	change_ball_holder(false)
+func _on_Field_changed_field(ball):
+	ball.kicks = 0
+	
+	$"../../DebugNode/FocusedLabel".text = 'focused: ' + str('char', owner.ball.holder)
+	$"../../DebugNode/KicksLabel".text = 'kicks: ' + str(owner.ball.kicks)
+	
+	owner.highlight.stop()

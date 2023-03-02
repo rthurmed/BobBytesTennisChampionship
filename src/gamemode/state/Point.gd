@@ -1,11 +1,9 @@
 extends State
 
 
-onready var score_char1 = $"../../Layers/ScoreDisplay/LabelChar1"
-onready var score_char2 = $"../../Layers/ScoreDisplay/LabelChar2"
 onready var reset_timer = $Reset
 
-var point_by = false
+var point_by = Enums.BallHolder.Player1
 
 
 func handle_input(_event: InputEvent): pass
@@ -14,17 +12,17 @@ func physics_process(_delta: float): pass
 
 
 func enter():
-	point_by = not owner.ball_on_char1
+	point_by = opposite_holder(owner.ball.holder)
 	
-	owner.floor_highlight.stop()
+	owner.highlight.stop()
 	owner.ball.set_collision(false)
 	
-	if point_by:
+	if point_by == Enums.BallHolder.Player1:
 		owner.points_char1 += 1
 	else:
 		owner.points_char2 += 1
 	
-	update_displays()
+	owner.update_displays()
 	
 	# is the last point?
 	if (
@@ -42,12 +40,9 @@ func exit():
 	owner.ball.set_collision(true)
 
 
-func update_displays():
-	$"../../DebugNode/PointsChar1Label".text = 'points char1: ' + str(owner.points_char1)
-	$"../../DebugNode/PointsChar2Label".text = 'points char2: ' + str(owner.points_char2)
-	
-	score_char1.text = str("%02d" % owner.points_char1)
-	score_char2.text = str("%02d" % owner.points_char2)
+func opposite_holder(holder):
+	if holder == Enums.BallHolder.Player1: return Enums.BallHolder.Player2
+	if holder == Enums.BallHolder.Player2: return Enums.BallHolder.Player1
 
 
 func _on_Reset_timeout():
@@ -55,6 +50,6 @@ func _on_Reset_timeout():
 	
 	# reset ball
 	owner.ball.queue_free()
-	owner.ball_on_char1 = point_by
+	owner.next_holder = point_by
 	
 	transition("Playing")
