@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://src/gamemode/state/GameOver.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.png" type="Texture" id=2]
@@ -114,7 +114,13 @@ tracks/1/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 1.5, 127.5 )
+extents = Vector2( 7, 127.5 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 104, 102 )
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 104, 102 )
 
 [sub_resource type="Animation" id=10]
 length = 0.001
@@ -227,16 +233,15 @@ default_time = 0.1
 [node name="Layers" type="Node2D" parent="."]
 
 [node name="Backdrop" type="Node2D" parent="Layers"]
-position = Vector2( -1, 0 )
 z_index = -10
 
 [node name="Background" type="Sprite" parent="Layers/Backdrop"]
-position = Vector2( 2, -79 )
+position = Vector2( 1, -79 )
 texture = ExtResource( 2 )
 
 [node name="ScoreDisplay" type="Node2D" parent="Layers/Backdrop"]
 unique_name_in_owner = true
-position = Vector2( 2, -162 )
+position = Vector2( 1, -162 )
 
 [node name="Sprite" type="Sprite" parent="Layers/Backdrop/ScoreDisplay"]
 texture = ExtResource( 7 )
@@ -259,6 +264,7 @@ custom_fonts/font = ExtResource( 15 )
 text = "00"
 
 [node name="Wall" type="StaticBody2D" parent="Layers/Backdrop"]
+position = Vector2( -1, 0 )
 collision_mask = 7
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Layers/Backdrop/Wall"]
@@ -298,7 +304,7 @@ anims/blink_char1 = SubResource( 3 )
 anims/blink_char2 = SubResource( 5 )
 
 [node name="Net" type="StaticBody2D" parent="Layers/Backdrop"]
-position = Vector2( 2, -23 )
+position = Vector2( 0, -23 )
 collision_mask = 7
 
 [node name="Sprite" type="Sprite" parent="Layers/Backdrop/Net"]
@@ -308,7 +314,6 @@ texture = ExtResource( 3 )
 polygon = PoolVector2Array( -7, -15, 0, -16, 7, -15, 7, 20, -7, 20 )
 
 [node name="PlayerWall" type="StaticBody2D" parent="Layers/Backdrop"]
-position = Vector2( 2, 0 )
 collision_layer = 2
 collision_mask = 3
 
@@ -316,21 +321,13 @@ collision_mask = 3
 position = Vector2( 0, -128 )
 shape = SubResource( 1 )
 
-[node name="FieldTransitionArea" type="Area2D" parent="Layers/Backdrop"]
-position = Vector2( 2, 0 )
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Backdrop/FieldTransitionArea"]
-position = Vector2( 0, -128 )
-shape = SubResource( 1 )
-
 [node name="Game" type="Node2D" parent="Layers"]
 
 [node name="Person1" parent="Layers/Game" instance=ExtResource( 10 )]
-position = Vector2( -160, -20 )
+position = Vector2( -162, -20 )
 
 [node name="Person2" parent="Layers/Game" instance=ExtResource( 10 )]
-position = Vector2( 160, -20 )
+position = Vector2( 158, -20 )
 opposite_side = true
 action_prefix = "p2_"
 
@@ -344,6 +341,61 @@ position = Vector2( -160, 0 )
 
 [node name="Char2" type="Position2D" parent="Layers/Positions/BallStart"]
 position = Vector2( 160, 0 )
+
+[node name="Areas" type="Node2D" parent="Layers/Positions"]
+
+[node name="AreaField1" type="Area2D" parent="Layers/Positions/Areas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Positions/Areas/AreaField1"]
+position = Vector2( -104, -102 )
+shape = SubResource( 11 )
+
+[node name="AreaField2" type="Area2D" parent="Layers/Positions/Areas"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Positions/Areas/AreaField2"]
+position = Vector2( 104, -102 )
+shape = SubResource( 12 )
+
+[node name="DebugNode" parent="." instance=ExtResource( 14 )]
+margin_left = -193.0
+margin_top = -189.0
+margin_right = -193.0
+margin_bottom = -189.0
+rect_scale = Vector2( 0.5, 0.5 )
+
+[node name="StateLabel" type="Label" parent="DebugNode"]
+margin_right = 95.0
+margin_bottom = 14.0
+text = "state: Playingw"
+uppercase = true
+
+[node name="FocusedLabel" type="Label" parent="DebugNode"]
+margin_top = 16.0
+margin_right = 93.0
+margin_bottom = 30.0
+text = "focused: char1"
+uppercase = true
+
+[node name="KicksLabel" type="Label" parent="DebugNode"]
+margin_top = 32.0
+margin_right = 93.0
+margin_bottom = 46.0
+text = "kicks: 0"
+uppercase = true
+
+[node name="PointsChar1Label" type="Label" parent="DebugNode"]
+margin_top = 48.0
+margin_right = 95.0
+margin_bottom = 62.0
+text = "points char1: 0"
+uppercase = true
+
+[node name="PointsChar2Label" type="Label" parent="DebugNode"]
+margin_top = 64.0
+margin_right = 95.0
+margin_bottom = 78.0
+text = "points char2: 0"
+uppercase = true
 
 [node name="Pause" parent="." instance=ExtResource( 12 )]
 
@@ -450,50 +502,10 @@ root_node = NodePath("../../..")
 anims/RESET = SubResource( 7 )
 anims/gameover = SubResource( 6 )
 
-[node name="DebugNode" parent="." instance=ExtResource( 14 )]
-margin_left = -193.0
-margin_top = -189.0
-margin_right = -193.0
-margin_bottom = -189.0
-rect_scale = Vector2( 0.5, 0.5 )
-
-[node name="StateLabel" type="Label" parent="DebugNode"]
-margin_right = 95.0
-margin_bottom = 14.0
-text = "state: Playingw"
-uppercase = true
-
-[node name="FocusedLabel" type="Label" parent="DebugNode"]
-margin_top = 16.0
-margin_right = 93.0
-margin_bottom = 30.0
-text = "focused: char1"
-uppercase = true
-
-[node name="KicksLabel" type="Label" parent="DebugNode"]
-margin_top = 32.0
-margin_right = 93.0
-margin_bottom = 46.0
-text = "kicks: 0"
-uppercase = true
-
-[node name="PointsChar1Label" type="Label" parent="DebugNode"]
-margin_top = 48.0
-margin_right = 95.0
-margin_bottom = 62.0
-text = "points char1: 0"
-uppercase = true
-
-[node name="PointsChar2Label" type="Label" parent="DebugNode"]
-margin_top = 64.0
-margin_right = 95.0
-margin_bottom = 78.0
-text = "points char2: 0"
-uppercase = true
-
-[connection signal="body_exited" from="Layers/Backdrop/FieldTransitionArea" to="StateMachine/Playing" method="_on_FieldTransitionArea_body_exited"]
 [connection signal="attack_executed" from="Layers/Game/Person1" to="." method="_on_Person_attack_executed"]
 [connection signal="attack_executed" from="Layers/Game/Person2" to="." method="_on_Person_attack_executed"]
+[connection signal="body_entered" from="Layers/Positions/Areas/AreaField1" to="StateMachine/Playing" method="_on_AreaField1_body_entered"]
+[connection signal="body_entered" from="Layers/Positions/Areas/AreaField2" to="StateMachine/Playing" method="_on_AreaField2_body_entered"]
 [connection signal="button_up" from="Overlay/Options/BackButton" to="Overlay" method="_on_BackButton_button_up"]
 [connection signal="transition" from="StateMachine" to="." method="_on_StateMachine_transition"]
 [connection signal="timeout" from="StateMachine/Point/Reset" to="StateMachine/Point" method="_on_Reset_timeout"]

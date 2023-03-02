@@ -42,6 +42,16 @@ func spawn_new_ball():
 	$"../../DebugNode/KicksLabel".text = 'kicks: ' + str(ball_kicks)
 
 
+func change_ball_holder(into_char1_field):
+	owner.ball_on_char1 = into_char1_field
+	ball_kicks = 0
+	
+	$"../../DebugNode/FocusedLabel".text = 'focused: ' + str('char1' if owner.ball_on_char1 else 'char2')
+	$"../../DebugNode/KicksLabel".text = 'kicks: ' + str(ball_kicks)
+	
+	owner.floor_highlight.stop()
+
+
 func _on_Ball_touched_floor():
 	if not active(): return
 	
@@ -58,17 +68,13 @@ func _on_Ball_touched_floor():
 		owner.floor_highlight.blink(owner.ball_on_char1)
 
 
-func _on_FieldTransitionArea_body_exited(body):
+func _on_AreaField1_body_entered(body):
 	if not active(): return
 	if not body.is_in_group('ball'): return
-	
-	# FIXME: possible to bug this if the ball falls to the same side
-	# use 2 full field areas to register the transition
-	
-	owner.ball_on_char1 = not owner.ball_on_char1
-	ball_kicks = 0
-	
-	$"../../DebugNode/FocusedLabel".text = 'focused: ' + str('char1' if owner.ball_on_char1 else 'char2')
-	$"../../DebugNode/KicksLabel".text = 'kicks: ' + str(ball_kicks)
-	
-	owner.floor_highlight.stop()
+	change_ball_holder(true)
+
+
+func _on_AreaField2_body_entered(body):
+	if not active(): return
+	if not body.is_in_group('ball'): return
+	change_ball_holder(false)
