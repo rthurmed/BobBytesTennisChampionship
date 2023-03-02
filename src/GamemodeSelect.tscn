@@ -1,0 +1,183 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://src/GamemodeSelect.gd" type="Script" id=1]
+[ext_resource path="res://assets/background.png" type="Texture" id=2]
+[ext_resource path="res://assets/texture/stripes.png" type="Texture" id=3]
+[ext_resource path="res://assets/texture/gradient.png" type="Texture" id=4]
+[ext_resource path="res://assets/buttons/button_options.tres" type="Texture" id=5]
+[ext_resource path="res://assets/buttons/button_1v1.tres" type="Texture" id=6]
+[ext_resource path="res://assets/buttons/button_hotpotato.tres" type="Texture" id=7]
+[ext_resource path="res://assets/buttons/button_bottle.tres" type="Texture" id=8]
+[ext_resource path="res://assets/buttons/button_training.tres" type="Texture" id=9]
+[ext_resource path="res://assets/buttons/button_back.tres" type="Texture" id=10]
+[ext_resource path="res://assets/buttons/custom_button_normal.tres" type="StyleBox" id=11]
+[ext_resource path="res://assets/buttons/custom_button_disabled.tres" type="StyleBox" id=12]
+[ext_resource path="res://assets/buttons/custom_button_focus.tres" type="StyleBox" id=13]
+[ext_resource path="res://assets/font/small_font.tres" type="DynamicFont" id=14]
+
+[node name="GamemodeSelect" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 201, 147 )
+texture = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Stripes" type="TextureRect" parent="CanvasLayer"]
+visible = false
+modulate = Color( 1, 1, 1, 0.498039 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 3 )
+stretch_mode = 2
+
+[node name="Gradient" type="TextureRect" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0.498039 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+stretch_mode = 2
+
+[node name="Menu" type="Control" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -107.0
+margin_top = -85.0
+margin_right = 98.0
+margin_bottom = 86.0
+
+[node name="NormalMode" type="Button" parent="CanvasLayer/Menu"]
+margin_top = 3.0
+margin_right = 132.0
+margin_bottom = 113.0
+focus_neighbour_right = NodePath("../HotPotato")
+focus_neighbour_bottom = NodePath("../TrainingMode")
+custom_styles/hover = ExtResource( 13 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 13 )
+custom_styles/disabled = ExtResource( 12 )
+custom_styles/normal = ExtResource( 11 )
+icon = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="CanvasLayer/Menu/NormalMode"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -25.0
+text = "1 V 1"
+align = 1
+
+[node name="HotPotato" type="Button" parent="CanvasLayer/Menu"]
+margin_left = 128.0
+margin_top = 3.0
+margin_right = 204.0
+margin_bottom = 57.0
+focus_neighbour_left = NodePath("../NormalMode")
+focus_neighbour_right = NodePath("../OptionsButton")
+custom_styles/hover = ExtResource( 13 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 13 )
+custom_styles/disabled = ExtResource( 12 )
+custom_styles/normal = ExtResource( 11 )
+disabled = true
+icon = ExtResource( 7 )
+flat = true
+
+[node name="Label" type="Label" parent="CanvasLayer/Menu/HotPotato"]
+modulate = Color( 1, 1, 1, 0.498039 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -15.0
+custom_fonts/font = ExtResource( 14 )
+text = "HOT POTATO"
+align = 1
+
+[node name="BottleTennis" type="Button" parent="CanvasLayer/Menu"]
+margin_left = 128.0
+margin_top = 59.0
+margin_right = 204.0
+margin_bottom = 113.0
+focus_neighbour_left = NodePath("../NormalMode")
+focus_neighbour_right = NodePath("../BackButton")
+focus_neighbour_bottom = NodePath("../TrainingMode")
+custom_styles/hover = ExtResource( 13 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 13 )
+custom_styles/disabled = ExtResource( 12 )
+custom_styles/normal = ExtResource( 11 )
+disabled = true
+icon = ExtResource( 8 )
+flat = true
+
+[node name="Label" type="Label" parent="CanvasLayer/Menu/BottleTennis"]
+modulate = Color( 1, 1, 1, 0.498039 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -15.0
+custom_fonts/font = ExtResource( 14 )
+text = "BOTTLE TENNIS"
+align = 1
+
+[node name="TrainingMode" type="Button" parent="CanvasLayer/Menu"]
+margin_top = 113.0
+margin_right = 204.0
+margin_bottom = 167.0
+focus_neighbour_top = NodePath("../NormalMode")
+custom_styles/hover = ExtResource( 13 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 13 )
+custom_styles/disabled = ExtResource( 12 )
+custom_styles/normal = ExtResource( 11 )
+disabled = true
+icon = ExtResource( 9 )
+flat = true
+
+[node name="Label" type="Label" parent="CanvasLayer/Menu/TrainingMode"]
+modulate = Color( 1, 1, 1, 0.498039 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -18.0
+custom_fonts/font = ExtResource( 14 )
+text = "TRAINING MODE"
+align = 1
+
+[node name="OptionsButton" type="Button" parent="CanvasLayer/Menu"]
+margin_left = 202.0
+margin_top = 3.0
+margin_right = 230.0
+margin_bottom = 25.0
+focus_neighbour_left = NodePath("../HotPotato")
+custom_styles/hover = ExtResource( 13 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 13 )
+custom_styles/disabled = ExtResource( 12 )
+custom_styles/normal = ExtResource( 11 )
+icon = ExtResource( 5 )
+flat = true
+
+[node name="BackButton" type="Button" parent="CanvasLayer/Menu"]
+margin_left = 202.0
+margin_top = 29.0
+margin_right = 230.0
+margin_bottom = 51.0
+focus_neighbour_left = NodePath("../BottleTennis")
+custom_styles/hover = ExtResource( 13 )
+custom_styles/pressed = ExtResource( 11 )
+custom_styles/focus = ExtResource( 13 )
+custom_styles/disabled = ExtResource( 12 )
+custom_styles/normal = ExtResource( 11 )
+icon = ExtResource( 10 )
+flat = true
+
+[connection signal="button_up" from="CanvasLayer/Menu/NormalMode" to="." method="_on_NormalMode_button_up"]
+[connection signal="button_up" from="CanvasLayer/Menu/HotPotato" to="." method="_on_HotPotato_button_up"]
+[connection signal="button_up" from="CanvasLayer/Menu/BottleTennis" to="." method="_on_BottleTennis_button_up"]
+[connection signal="button_up" from="CanvasLayer/Menu/TrainingMode" to="." method="_on_TrainingMode_button_up"]
