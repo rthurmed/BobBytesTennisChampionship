@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://src/gamemode/state/GameOver.gd" type="Script" id=1]
 [ext_resource path="res://assets/background.png" type="Texture" id=2]
@@ -21,11 +21,7 @@
 [ext_resource path="res://src/gamemode/state/Playing.gd" type="Script" id=19]
 [ext_resource path="res://assets/font/Last Spaceship.ttf" type="DynamicFontData" id=20]
 [ext_resource path="res://assets/sfx/winMatch.wav" type="AudioStream" id=21]
-[ext_resource path="res://assets/buttons/custom_button_disabled.tres" type="StyleBox" id=22]
-[ext_resource path="res://assets/buttons/custom_button_normal.tres" type="StyleBox" id=23]
-[ext_resource path="res://assets/buttons/custom_button_focus.tres" type="StyleBox" id=24]
-[ext_resource path="res://assets/buttons/button_back.tres" type="Texture" id=25]
-[ext_resource path="res://src/gamemode/Overlay.gd" type="Script" id=26]
+[ext_resource path="res://src/gamemode/util/Overlay.tscn" type="PackedScene" id=22]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 232, 40 )
@@ -239,30 +235,6 @@ z_index = -10
 position = Vector2( 1, -79 )
 texture = ExtResource( 2 )
 
-[node name="ScoreDisplay" type="Node2D" parent="Layers/Backdrop"]
-unique_name_in_owner = true
-position = Vector2( 1, -162 )
-
-[node name="Sprite" type="Sprite" parent="Layers/Backdrop/ScoreDisplay"]
-texture = ExtResource( 7 )
-
-[node name="LabelChar1" type="Label" parent="Layers/Backdrop/ScoreDisplay"]
-margin_left = -33.0
-margin_top = -11.0
-margin_right = 1.0
-margin_bottom = 16.0
-custom_fonts/font = ExtResource( 15 )
-text = "00"
-align = 2
-
-[node name="LabelChar2" type="Label" parent="Layers/Backdrop/ScoreDisplay"]
-margin_left = 4.0
-margin_top = -11.0
-margin_right = 38.0
-margin_bottom = 16.0
-custom_fonts/font = ExtResource( 15 )
-text = "00"
-
 [node name="Wall" type="StaticBody2D" parent="Layers/Backdrop"]
 position = Vector2( -1, 0 )
 collision_mask = 7
@@ -321,6 +293,30 @@ collision_mask = 3
 position = Vector2( 0, -128 )
 shape = SubResource( 1 )
 
+[node name="ScoreDisplay" type="Node2D" parent="Layers"]
+unique_name_in_owner = true
+position = Vector2( 1, -162 )
+
+[node name="Sprite" type="Sprite" parent="Layers/ScoreDisplay"]
+texture = ExtResource( 7 )
+
+[node name="LabelChar1" type="Label" parent="Layers/ScoreDisplay"]
+margin_left = -33.0
+margin_top = -11.0
+margin_right = 1.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 15 )
+text = "00"
+align = 2
+
+[node name="LabelChar2" type="Label" parent="Layers/ScoreDisplay"]
+margin_left = 4.0
+margin_top = -11.0
+margin_right = 38.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 15 )
+text = "00"
+
 [node name="Game" type="Node2D" parent="Layers"]
 
 [node name="Person1" parent="Layers/Game" instance=ExtResource( 10 )]
@@ -330,6 +326,18 @@ position = Vector2( -162, -20 )
 position = Vector2( 158, -20 )
 opposite_side = true
 action_prefix = "p2_"
+
+[node name="AreaField1" type="Area2D" parent="Layers/Game"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Game/AreaField1"]
+position = Vector2( -104, -102 )
+shape = SubResource( 11 )
+
+[node name="AreaField2" type="Area2D" parent="Layers/Game"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Game/AreaField2"]
+position = Vector2( 104, -102 )
+shape = SubResource( 12 )
 
 [node name="Positions" type="Node2D" parent="Layers"]
 
@@ -343,18 +351,6 @@ position = Vector2( -160, 0 )
 position = Vector2( 160, 0 )
 
 [node name="Areas" type="Node2D" parent="Layers/Positions"]
-
-[node name="AreaField1" type="Area2D" parent="Layers/Positions/Areas"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Positions/Areas/AreaField1"]
-position = Vector2( -104, -102 )
-shape = SubResource( 11 )
-
-[node name="AreaField2" type="Area2D" parent="Layers/Positions/Areas"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Layers/Positions/Areas/AreaField2"]
-position = Vector2( 104, -102 )
-shape = SubResource( 12 )
 
 [node name="DebugNode" parent="." instance=ExtResource( 14 )]
 margin_left = -193.0
@@ -399,29 +395,7 @@ uppercase = true
 
 [node name="Pause" parent="." instance=ExtResource( 12 )]
 
-[node name="Overlay" type="CanvasLayer" parent="."]
-pause_mode = 2
-layer = 4
-script = ExtResource( 26 )
-
-[node name="Options" type="HBoxContainer" parent="Overlay"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -40.0
-margin_bottom = 24.0
-alignment = 2
-
-[node name="BackButton" type="Button" parent="Overlay/Options"]
-margin_left = 12.0
-margin_right = 40.0
-margin_bottom = 24.0
-focus_neighbour_left = NodePath("../BottleTennis")
-custom_styles/hover = ExtResource( 24 )
-custom_styles/pressed = ExtResource( 23 )
-custom_styles/focus = ExtResource( 24 )
-custom_styles/disabled = ExtResource( 22 )
-custom_styles/normal = ExtResource( 23 )
-icon = ExtResource( 25 )
+[node name="Overlay" parent="." instance=ExtResource( 22 )]
 
 [node name="Sound" type="Node" parent="."]
 
@@ -504,9 +478,8 @@ anims/gameover = SubResource( 6 )
 
 [connection signal="attack_executed" from="Layers/Game/Person1" to="." method="_on_Person_attack_executed"]
 [connection signal="attack_executed" from="Layers/Game/Person2" to="." method="_on_Person_attack_executed"]
-[connection signal="body_entered" from="Layers/Positions/Areas/AreaField1" to="StateMachine/Playing" method="_on_AreaField1_body_entered"]
-[connection signal="body_entered" from="Layers/Positions/Areas/AreaField2" to="StateMachine/Playing" method="_on_AreaField2_body_entered"]
-[connection signal="button_up" from="Overlay/Options/BackButton" to="Overlay" method="_on_BackButton_button_up"]
+[connection signal="body_entered" from="Layers/Game/AreaField1" to="StateMachine/Playing" method="_on_AreaField1_body_entered"]
+[connection signal="body_entered" from="Layers/Game/AreaField2" to="StateMachine/Playing" method="_on_AreaField2_body_entered"]
 [connection signal="transition" from="StateMachine" to="." method="_on_StateMachine_transition"]
 [connection signal="timeout" from="StateMachine/Point/Reset" to="StateMachine/Point" method="_on_Reset_timeout"]
 [connection signal="animation_finished" from="StateMachine/Gameover/AnimationPlayer" to="StateMachine/Gameover" method="_on_AnimationPlayer_animation_finished"]

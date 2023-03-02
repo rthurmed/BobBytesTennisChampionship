@@ -1,8 +1,8 @@
 extends State
 
 
-onready var score_char1 = $"../../Layers/Backdrop/ScoreDisplay/LabelChar1"
-onready var score_char2 = $"../../Layers/Backdrop/ScoreDisplay/LabelChar2"
+onready var score_char1 = $"../../Layers/ScoreDisplay/LabelChar1"
+onready var score_char2 = $"../../Layers/ScoreDisplay/LabelChar2"
 onready var reset_timer = $Reset
 
 var point_by = false
