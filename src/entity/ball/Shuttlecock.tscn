@@ -1,13 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/entity/ball/Ball.gd" type="Script" id=1]
 [ext_resource path="res://assets/shuttlecock.png" type="Texture" id=2]
+[ext_resource path="res://assets/particle-shuttlecock.png" type="Texture" id=3]
 
 [sub_resource type="PhysicsMaterial" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.0
 height = 12.0
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
 [node name="Shuttlecock" type="RigidBody2D" groups=["ball"]]
 collision_layer = 4
@@ -26,5 +30,15 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -6 )
 shape = SubResource( 1 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = -1
+amount = 16
+lifetime = 0.25
+local_coords = false
+texture = ExtResource( 3 )
+gravity = Vector2( 0, 0 )
+scale_amount_curve = SubResource( 3 )
+color = Color( 1, 1, 1, 0.247059 )
 
 [connection signal="body_entered" from="." to="." method="_on_Ball_body_entered"]
