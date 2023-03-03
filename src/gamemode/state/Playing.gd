@@ -1,6 +1,8 @@
 extends State
 
 
+const BALL_VELOCITY_TO_SOUND = -4
+
 onready var animation = $AnimationPlayer
 onready var person1 = $"../../Game/Person1"
 onready var person2 = $"../../Game/Person2"
@@ -10,10 +12,18 @@ var ball_kicks = 0
 
 func process(delta: float):
 	owner.time_of_play += delta
-	owner.score_display.set_time(owner.duration - owner.time_of_play)
+	
+	var seconds = owner.duration - owner.time_of_play
+	owner.score_display.set_time(seconds)
+	
+	if owner.counting_on_ball and owner.ball != null:
+		owner.ball.set_time(seconds)
 	
 	if owner.time_of_play > owner.duration:
-		transition("Gameover")
+		if owner.point_for_not_holding_at_end:
+			transition("Point")
+		else:
+			transition("Gameover")
 		return
 
 
@@ -22,7 +32,8 @@ func enter():
 	spawn_new_ball()
 	# TODO: replace animation with something manual on process()
 	# using lerp() and clamp()
-	animation.play("increasing_strength")
+	if owner.increasing_strength:
+		animation.play("increasing_strength")
 
 
 func exit():
@@ -49,10 +60,14 @@ func spawn_new_ball():
 func _on_Ball_touched_floor():
 	if not active(): return
 	
-	owner.sound_hit_floor.play()
+	if owner.ball.linear_velocity.y < BALL_VELOCITY_TO_SOUND:
+		owner.sound_hit_floor.play()
 	
 	owner.ball.kicks = owner.ball.kicks + 1
 	$"../../DebugNode/KicksLabel".text = 'kicks: ' + str(owner.ball.kicks)
+	
+	if owner.ball_kicks_to_fail < 0:
+		return
 	
 	if owner.ball.kicks >= owner.ball_kicks_to_fail:
 		transition("Point")

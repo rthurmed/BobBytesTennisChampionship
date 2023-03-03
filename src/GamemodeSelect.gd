@@ -6,7 +6,7 @@ onready var animation = $AnimationPlayer
 
 var gamemode_paths = {
 	Enums.Gamemode.NORMAL: "res://src/gamemode/Tennis.tscn",
-	Enums.Gamemode.HOTPOTATO: "",
+	Enums.Gamemode.HOTPOTATO: "res://src/gamemode/hotpotato/HotPotato.tscn",
 	Enums.Gamemode.BOTTLE: "res://src/gamemode/badminton/Badminton.tscn",
 	Enums.Gamemode.TRAINING: ""
 }

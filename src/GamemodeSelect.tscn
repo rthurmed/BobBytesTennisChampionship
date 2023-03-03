@@ -455,8 +455,6 @@ stretch_mode = 2
 modulate = Color( 1, 1, 1, 0.498039 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 400.0
-margin_bottom = 240.0
 texture = ExtResource( 4 )
 stretch_mode = 2
 
@@ -505,12 +503,10 @@ custom_styles/pressed = ExtResource( 11 )
 custom_styles/focus = ExtResource( 13 )
 custom_styles/disabled = ExtResource( 12 )
 custom_styles/normal = ExtResource( 11 )
-disabled = true
 icon = ExtResource( 7 )
 flat = true
 
 [node name="Label" type="Label" parent="CanvasLayer/Menu/HotPotato"]
-modulate = Color( 1, 1, 1, 0.498039 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0

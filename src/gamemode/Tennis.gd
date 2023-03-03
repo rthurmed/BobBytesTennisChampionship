@@ -6,10 +6,12 @@ const CAMERA_SHAKE_REFERENCE_POINT = 600
 const BALL_RECOVERY_TIME = 2 # seconds
 
 export var ball_scene: PackedScene
-export var counting_ball_kicks = true
 export var ball_kicks_to_fail = 2
 export var points_to_win = 5
 export var duration = 4 * 60 # 5 minutes
+export var increasing_strength = true
+export var counting_on_ball = false
+export var point_for_not_holding_at_end = false
 
 onready var camera_shake = $Camera2D/Shake
 onready var game_layer = $Game
